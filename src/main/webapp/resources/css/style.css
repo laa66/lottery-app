@@ -45,3 +45,18 @@
     border-collapse: separate;
     border-spacing: 35px;
 }
+
+.list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: inline-block;
+    padding-left: 100px;
+
+}
+
+.list-item {
+    float: left;
+    padding-right: 70px;
+  }
