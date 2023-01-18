@@ -13,11 +13,37 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     </head>
     <body class="main">
+
         <div class="header">
             <h2>Lottery Web App</h2>
         </div>
+
         <div class="body">
-            <h2>Generated numbers: ${numbers}</h2>
+
+            <div class="body-title">
+                <p>Today Generated numbers</p>
+            </div>
+
+            <div class="numbers">
+                <p>6 6 6 6 6 6</p>
+            </div>
+
+            <div class="numbers-history-title">
+
+                <p>Historical numbers</p>
+
+                <div class="numbers-history">
+
+                    <table class="basic-table">
+                        <tr>
+                            <th>Lottery date</th>
+                            <th>Numbers</th>
+                        </tr>
+                        <!-- Create table rows based on historical data fetched from DB -->
+                    </table>
+
+                </div>
+            </div>
         </div>
     </body>
 </html>
