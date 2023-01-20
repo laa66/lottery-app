@@ -1,30 +1,58 @@
 package com.laa66.springmvc.lottery.app.dao;
 
 import com.laa66.springmvc.lottery.app.entity.DrawResult;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+// TODO: 20.01.2023 TEST REPO
 @Repository
 public class DrawResultDAOImpl implements DrawResultDAO {
 
-    @Override
-    public void saveDrawResult() {
+    @Autowired
+    private SessionFactory sessionFactory;
 
+    @Override
+    public void saveDrawResult(DrawResult drawResult) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(drawResult);
     }
 
     @Override
-    public void deleteDrawResult() {
+    public void deleteDrawResults() {
 
     }
 
     @Override
     public List<DrawResult> getDrawResults() {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        Query<DrawResult> query = session.createQuery("FROM DrawResult", DrawResult.class);
+        List<DrawResult> list;
+        try {
+            list = query.getResultList();
+        } catch (Exception e) {
+            list = null;
+        }
+        return list;
     }
 
     @Override
     public DrawResult getLastDrawResult() {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        Query<DrawResult> query = session.createQuery("FROM DrawResult ORDER BY date DESC", DrawResult.class);
+        query.setMaxResults(1);
+        DrawResult drawResult;
+        try {
+            drawResult = query.getSingleResult();
+        } catch (Exception e) {
+            drawResult = null;
+        }
+        System.out.println(drawResult);
+        return drawResult;
     }
 }

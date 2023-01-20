@@ -1,5 +1,6 @@
 package com.laa66.springmvc.lottery.app.entity;
 
+import javax.persistence.*;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -12,10 +13,23 @@ import java.util.Set;
  *  they hold generated numbers in lottery
  *
  */
+
+@Entity
+@Table(name = "draw_results")
 public class DrawResult {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
-    private Set<Integer> numbers;
+
+    @Column(name = "date_time")
     private LocalDateTime date;
+
+    @ElementCollection
+    @CollectionTable(name = "draw_result_numbers",joinColumns = @JoinColumn(name = "draw_result_id"))
+    @Column(name = "number")
+    private Set<Integer> numbers;
 
     public DrawResult() {
 
