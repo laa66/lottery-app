@@ -10,6 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
@@ -27,6 +28,7 @@ import java.util.logging.Logger;
 @ComponentScan("com.laa66.springmvc.lottery.app")
 @PropertySource("classpath:app-prop.properties")
 @EnableTransactionManagement
+@EnableScheduling
 public class AppConfig implements WebMvcConfigurer {
 
     private Logger logger = Logger.getLogger(getClass().getName());
@@ -78,7 +80,6 @@ public class AppConfig implements WebMvcConfigurer {
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
     }
-
 
     // helpers
     private Properties getHibernateProperties() {

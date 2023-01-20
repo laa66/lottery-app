@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DrawResultDAO {
     void saveDrawResult(DrawResult drawResult);
-    void deleteDrawResults();
+    void deleteDrawResult(int id);
     List<DrawResult> getDrawResults();
     DrawResult getLastDrawResult();
 }

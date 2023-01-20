@@ -17,8 +17,10 @@ public class LotteryController {
     @Autowired
     private LotteryService lotteryService;
 
+
     @GetMapping("/")
     public String showHome(Model model) {
+        lotteryService.deleteDrawResult(10);
         return "index";
     }
 }

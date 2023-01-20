@@ -7,6 +7,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,8 +25,14 @@ public class DrawResultDAOImpl implements DrawResultDAO {
     }
 
     @Override
-    public void deleteDrawResults() {
-
+    public void deleteDrawResult(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        DrawResult drawResult = session.get(DrawResult.class, id);
+        try {
+            session.remove(drawResult);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

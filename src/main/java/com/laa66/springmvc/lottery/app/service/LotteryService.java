@@ -17,8 +17,9 @@ public interface LotteryService {
 
     DrawResult getLastDrawResult();
 
-    void deleteDrawResults();
+    void deleteDrawResult(int id);
 
     void drawAndSave();
+    void drawOneTimeADay();
 
 }
