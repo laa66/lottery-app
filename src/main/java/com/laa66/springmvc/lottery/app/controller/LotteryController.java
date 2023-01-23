@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,7 +18,10 @@ public class LotteryController {
 
     @GetMapping("/")
     public String showHome(Model model) {
-        lotteryService.deleteDrawResult(10);
+        DrawResult drawResult = lotteryService.getLastDrawResult();
+        List<DrawResult> allNumbers = lotteryService.getDrawResults();
+        model.addAttribute("lastNumbers", drawResult);
+        model.addAttribute("allNumbers", allNumbers);
         return "index";
     }
 }

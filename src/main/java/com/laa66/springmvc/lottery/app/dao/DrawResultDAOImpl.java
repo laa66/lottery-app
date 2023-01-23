@@ -7,8 +7,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
-import java.time.LocalDateTime;
 import java.util.List;
 
 // TODO: 20.01.2023 TEST REPO
@@ -38,7 +36,7 @@ public class DrawResultDAOImpl implements DrawResultDAO {
     @Override
     public List<DrawResult> getDrawResults() {
         Session session = sessionFactory.getCurrentSession();
-        Query<DrawResult> query = session.createQuery("FROM DrawResult", DrawResult.class);
+        Query<DrawResult> query = session.createQuery("FROM DrawResult ORDER BY date DESC", DrawResult.class);
         List<DrawResult> list;
         try {
             list = query.getResultList();
@@ -59,7 +57,6 @@ public class DrawResultDAOImpl implements DrawResultDAO {
         } catch (Exception e) {
             drawResult = null;
         }
-        System.out.println(drawResult);
         return drawResult;
     }
 }

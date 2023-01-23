@@ -60,3 +60,12 @@
     float: left;
     padding-right: 70px;
   }
+
+  th {
+    text-align: left;
+  }
+
+  td {
+    text-align: left;
+  }
+

@@ -44,6 +44,16 @@
                             <th>Lottery date</th>
                             <th>Numbers</th>
                         </tr>
+                        <c:forEach var="drawResult" items="${allNumbers}">
+                            <tr>
+                                <div class="lottery-date"><td><c:out value="${drawResult.dateString}"/></td></div>
+                                <div class="historical-numbers"><td>
+                                    <c:forEach var="historicalNumber" items="${drawResult.numbers}">
+                                        ${historicalNumber}
+                                    </c:forEach>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         <!-- Create table rows based on historical data fetched from DB -->
                     </table>
 

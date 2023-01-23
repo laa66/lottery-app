@@ -6,22 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-// TODO: 20.01.2023 TEST SERVICE
 @Service
 public class LotteryServiceImpl implements LotteryService {
 
     @Autowired
     private DrawResultDAO drawResultDAO;
 
-
     @Override
     @Transactional
     public List<DrawResult> getDrawResults() {
-        return drawResultDAO.getDrawResults();
+        List<DrawResult> list = drawResultDAO.getDrawResults();
+        mapDatesToString(list);
+        return list;
     }
 
     @Override
@@ -50,5 +49,11 @@ public class LotteryServiceImpl implements LotteryService {
     @Override
     public void drawOneTimeADay() {
         drawAndSave();
+    }
+
+    // helpers
+    public void mapDatesToString(List<DrawResult> list) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm");
+        for (DrawResult drawResult: list) drawResult.setDateString(formatter.format(drawResult.getDate()));
     }
 }
