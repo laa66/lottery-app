@@ -6,9 +6,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- *  Support for CRUD Database operations and also one drawAndSave
+ *  Support for CRUD Database operations and also drawAndSave
  *  function for generating DrawResult object which
  *  should be immediately saved in Database
+ *  and drawOneTimeADay function which generates
+ *  one drawResult object a day
  *
  */
 public interface LotteryService {
