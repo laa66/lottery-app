@@ -15,7 +15,6 @@ public class LotteryController {
     @Autowired
     private LotteryService lotteryService;
 
-
     @GetMapping("/")
     public String showHome(Model model) {
         DrawResult drawResult = lotteryService.getLastDrawResult();

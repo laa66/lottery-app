@@ -1,0 +1,22 @@
+.form-signin {
+    width: 18%;
+    margin-left: 41%;
+    margin-top: 6%;
+}
+
+#sign-button {
+    width: 50%;
+    margin-left: 25%;
+}
+
+.sign-title {
+    font-size: 30px;
+    width: 80%;
+    margin-left: 20%;
+    margin-bottom: 20px;
+}
+
+.dice-container {
+    width: 50%;
+    margin-left: 25%;
+}

@@ -1,0 +1,17 @@
+.form-signin {
+    width: 18%;
+    margin-left: 41%;
+    margin-top: 3%;
+}
+
+#sign-button {
+    color:beige;
+    width: 100%;
+}
+
+.sign-title {
+    font-size: 30px;
+    width: 60%;
+    margin-left: 20%;
+    margin-bottom: 20px;
+}
