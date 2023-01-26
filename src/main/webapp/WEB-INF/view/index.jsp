@@ -13,20 +13,52 @@
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
                     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
                     crossorigin="anonymous">
-                <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css?version=37">
+                <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css?version=43">
             </head>
 
             <body class="main">
 
                 <div class="header">
+
                     <div class="header-content header-logo">
                         <h1>Lottery Web App</h1>
                     </div>
+
                     <div class="header-content header-hello">
-                        <p>Hello, .... !</p>
+                        <p>
+                            <security:authorize access="hasAnyRole('USER', 'ADMIN')">
+                                Hello,
+                                <security:authentication property="principal.username" />
+                            </security:authorize>
+                        </p>
+
                     </div>
-                    <div class="header-content header-login"><button class="header-button header-button-login" onclick="window.location.href='${pageContext.request.contextPath}/join/login';return false;">Login</button>
-                        <button class="header-button header-button-sign" onclick="window.location.href='${pageContext.request.contextPath}/join/signup';return false;">Sign Up</button></div>
+
+                   
+                    <div class="header-content header-login">
+                        <security:authorize access="isAuthenticated()">
+                            <div class="dropdown header-button-logout">
+                                <button class="header-button dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  User - <security:authentication property="principal.username"/>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                  <button class="dropdown-item" type="button">Settings</button>
+                                  <form:form action="${pageContext.request.contextPath}/logout" method="POST">
+                                        <button class="dropdown-item" type="submit">Logout</button>
+                                </form:form>
+                                </div>
+                              </div>
+                           
+                        </security:authorize>
+
+                        <security:authorize access="!isAuthenticated()">
+                            <button class="header-button header-button-login"
+                                onclick="window.location.href='${pageContext.request.contextPath}/join/login';return false;">Login</button>
+                            <button class="header-button header-button-sign"
+                                onclick="window.location.href='${pageContext.request.contextPath}/join/signup';return false;">Sign Up</button>
+                        </security:authorize>
+                    </div>
+
                 </div>
 
                 <div class="body">
@@ -52,15 +84,23 @@
                     <div class="numbers-history-title">
 
                         <div>
-                            <div class="section section-1">
-                                <p onclick="show('your-numbers')">Your numbers</p>
-                            </div>
-                            <div class="section section-2">
-                                <p onclick="show('play-lottery')">Play the lottery</p>
-                            </div>
+
+                            <security:authorize access="isAuthenticated()">
+                                <div class="section section-2">
+                                    <p onclick="showSectionWithId('play-lottery')">Play the lottery</p>
+                                </div>
+                            </security:authorize>
+
                             <div class="section section-3">
-                                <p onclick="show('historical-numbers')">Historical numbers</p>
+                                <p onclick="showSectionWithId('historical-numbers')">Historical numbers</p>
                             </div>
+
+                            <security:authorize access="isAuthenticated()">
+                                <div class="section section-1">
+                                    <p onclick="showSectionWithId('your-numbers')">Your numbers</p>
+                                </div>
+                            </security:authorize>
+
                         </div>
 
                         <div id="temp-div" class="numbers-history">
@@ -144,36 +184,45 @@
 
                         <div id="play-lottery" class="numbers-history" style="display: none">
                             <form action="">
-                                <p>Enter <i style="color: goldenrod;">6</i> numbers and submit them to participate in the draw</p>
+                                <p>Enter <i style="color: goldenrod;">6</i> numbers and submit them to participate in
+                                    the draw</p>
                                 <div class="row g-3">
-                                      <div class="col-sm">
-                                        <input type="number" min=0 max="100" class="form-control" placeholder="1" aria-label="Zip">
-                                      </div>
-                                      <div class="col-sm">
-                                        <input type="number" min=0 max="100" class="form-control" placeholder="2" aria-label="Zip">
-                                      </div>
-                                      <div class="col-sm">
-                                        <input type="number" min=0 max="100" class="form-control" placeholder="3" aria-label="Zip">
-                                      </div>
-                                      <div class="col-sm">
-                                        <input type="number" min=0 max="100" class="form-control" placeholder="4" aria-label="Zip">
-                                      </div>
-                                      <div class="col-sm">
-                                        <input type="number" min=0 max="100" class="form-control" placeholder="5" aria-label="Zip">
-                                      </div>
-                                      <div class="col-sm">
-                                        <input type="number" min=0 max="100" class="form-control" placeholder="6" aria-label="Zip">
-                                      </div>
-                                  </div>
-                                  <br>
-                                  <button class="header-button">Submit</button>
+                                    <div class="col-sm">
+                                        <input type="number" min=0 max="100" class="form-control" placeholder="1"
+                                            aria-label="Zip">
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="number" min=0 max="100" class="form-control" placeholder="2"
+                                            aria-label="Zip">
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="number" min=0 max="100" class="form-control" placeholder="3"
+                                            aria-label="Zip">
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="number" min=0 max="100" class="form-control" placeholder="4"
+                                            aria-label="Zip">
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="number" min=0 max="100" class="form-control" placeholder="5"
+                                            aria-label="Zip">
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="number" min=0 max="100" class="form-control" placeholder="6"
+                                            aria-label="Zip">
+                                    </div>
+                                </div>
+                                <br>
+                                <button class="header-button">Submit</button>
                             </form>
                         </div>
 
                         <script>
-                            function show(divId) {
+
+                            function showSectionWithId(divId) {
                                 document.getElementById('temp-div').innerHTML = document.getElementById(divId).innerHTML;
                             }
+
                         </script>
 
                         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

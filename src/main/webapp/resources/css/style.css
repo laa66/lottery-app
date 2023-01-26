@@ -89,6 +89,10 @@
     margin-left: 5%;
 }
 
+.header-button-logout {
+    margin-left: 40%;
+}
+
 .body {
     text-align: center;
 }

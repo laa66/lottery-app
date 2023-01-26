@@ -56,8 +56,13 @@ public class SecurityConfig {
                 .authenticated()
                 .and()
                 .formLogin()
+                .loginPage("/join/login")
                 .loginProcessingUrl("/authenticateUser")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
                 .permitAll();
+
         return http.build();
     }
 

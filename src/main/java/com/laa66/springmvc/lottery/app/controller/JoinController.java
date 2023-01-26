@@ -1,8 +1,6 @@
 package com.laa66.springmvc.lottery.app.controller;
 
-import com.laa66.springmvc.lottery.app.entity.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -11,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class JoinController {
 
     @GetMapping("/login")
-    public String showLoginForm(Model model) {
+    public String showLoginForm() {
         return "login";
     }
     @GetMapping("/signup")

@@ -19,25 +19,25 @@
 
             <body class="main">
                 <main class="form-signin">
-                    <form>
+                    <form:form action="${pageContext.request.contextPath}/authenticateUser" method="POST">
                       <div class="dice-container"><img src="${pageContext.request.contextPath}/resources/image/square-dice.png" alt="Dice" style="width:128px;height:128px;"/></div>
                       <br>
                       <p class="sign-title">Please sign in</p>
                   
                       <div class="form-floating">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <input name="username" type="username" class="form-control" id="floatingInput" placeholder="Username">
                         <label for="floatingInput">Email address</label>
                       </div>
                       <br>
                       <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                        <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
                         <label for="floatingPassword">Password</label>
                       </div>
                       <br>
         
                       </div>
                       <button class="header-button" id="sign-button" type="submit">Sign in</button>
-                    </form>
+                    </form:form>
                   </main>
             </body>
 
