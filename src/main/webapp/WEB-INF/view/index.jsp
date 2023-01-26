@@ -13,7 +13,7 @@
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
                     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
                     crossorigin="anonymous">
-                <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css?version=34">
+                <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css?version=37">
             </head>
 
             <body class="main">
@@ -64,7 +64,6 @@
                         </div>
 
                         <div id="temp-div" class="numbers-history">
-
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -87,7 +86,6 @@
                                     </c:forEach>
                                 </tbody>
                             </table>
-
                         </div>
 
 
@@ -145,29 +143,31 @@
                         </div>
 
                         <div id="play-lottery" class="numbers-history" style="display: none">
-                            <p>Enter <i style="color: goldenrod;">6</i> numbers and submit them to participate in the draw</p>
-                            <div class="row g-3">
-                                  <div class="col-sm">
-                                    <input type="number" min=0 max="100" class="form-control" placeholder="1" aria-label="Zip">
+                            <form action="">
+                                <p>Enter <i style="color: goldenrod;">6</i> numbers and submit them to participate in the draw</p>
+                                <div class="row g-3">
+                                      <div class="col-sm">
+                                        <input type="number" min=0 max="100" class="form-control" placeholder="1" aria-label="Zip">
+                                      </div>
+                                      <div class="col-sm">
+                                        <input type="number" min=0 max="100" class="form-control" placeholder="2" aria-label="Zip">
+                                      </div>
+                                      <div class="col-sm">
+                                        <input type="number" min=0 max="100" class="form-control" placeholder="3" aria-label="Zip">
+                                      </div>
+                                      <div class="col-sm">
+                                        <input type="number" min=0 max="100" class="form-control" placeholder="4" aria-label="Zip">
+                                      </div>
+                                      <div class="col-sm">
+                                        <input type="number" min=0 max="100" class="form-control" placeholder="5" aria-label="Zip">
+                                      </div>
+                                      <div class="col-sm">
+                                        <input type="number" min=0 max="100" class="form-control" placeholder="6" aria-label="Zip">
+                                      </div>
                                   </div>
-                                  <div class="col-sm">
-                                    <input type="number" min=0 max="100" class="form-control" placeholder="2" aria-label="Zip">
-                                  </div>
-                                  <div class="col-sm">
-                                    <input type="number" min=0 max="100" class="form-control" placeholder="3" aria-label="Zip">
-                                  </div>
-                                  <div class="col-sm">
-                                    <input type="number" min=0 max="100" class="form-control" placeholder="4" aria-label="Zip">
-                                  </div>
-                                  <div class="col-sm">
-                                    <input type="number" min=0 max="100" class="form-control" placeholder="5" aria-label="Zip">
-                                  </div>
-                                  <div class="col-sm">
-                                    <input type="number" min=0 max="100" class="form-control" placeholder="6" aria-label="Zip">
-                                  </div>
-                              </div>
-                              <br>
-                              <button class="header-button">Submit</button>
+                                  <br>
+                                  <button class="header-button">Submit</button>
+                            </form>
                         </div>
 
                         <script>

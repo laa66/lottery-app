@@ -7,6 +7,16 @@
     }
   }
 
+  @keyframes slideInUp {
+    0% {
+      transform: translateY(-40%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+
 .main {
     background-color: rgb(12, 12, 12);
     color: beige;
@@ -108,8 +118,12 @@
 }
 
 .numbers-history-title {
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-name: slideInUp;
     font-size: 36px;
-
 }
 
 .section {
@@ -156,6 +170,7 @@
     margin-left: 10%;
 
 }
+
 
 .list {
     list-style-type: none;
