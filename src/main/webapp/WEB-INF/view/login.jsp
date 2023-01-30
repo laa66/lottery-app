@@ -23,20 +23,31 @@
                       <div class="dice-container"><img src="${pageContext.request.contextPath}/resources/image/square-dice.png" alt="Dice" style="width:128px;height:128px;"/></div>
                       <br>
                       <p class="sign-title">Please sign in</p>
+
+                      <c:if test="${param.error != null}">
+                        <i class="text-danger mb-3">You entered invalid username/password.</i>
+                      </c:if>
                   
                       <div class="form-floating">
                         <input name="username" type="username" class="form-control" id="floatingInput" placeholder="Username">
-                        <label for="floatingInput">Email address</label>
+                        <label for="floatingInput">Username</label>
                       </div>
                       <br>
                       <div class="form-floating">
                         <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
                         <label for="floatingPassword">Password</label>
                       </div>
+                      
                       <br>
         
                       </div>
                       <button class="header-button" id="sign-button" type="submit">Sign in</button>
+                      <div class="mt-4">
+                        <a href="${pageContext.request.contextPath}/join/signup" class="text-secondary"><p class="text-center">New to Lottery App? Register.</p></a>
+                      </div>
+                      <div>
+                        <a href="${pageContext.request.contextPath}/" class="text-secondary"><p class="text-center">Return to Home page</p></a>
+                      </div>
                     </form:form>
                   </main>
             </body>

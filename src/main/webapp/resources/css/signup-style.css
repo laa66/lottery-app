@@ -15,3 +15,8 @@
     margin-left: 20%;
     margin-bottom: 20px;
 }
+
+.error {
+    color: rgb(180, 3, 3);
+    font-size: 14px;
+}

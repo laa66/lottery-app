@@ -39,6 +39,15 @@ public class User {
 
     }
 
+    public User(String firstName, String lastName, String username, String password, LocalDate birthDate, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.birthDate = birthDate;
+        this.email = email;
+    }
+
     public void addTicket(Ticket ticket) {
         if (tickets == null) tickets = new HashSet<>();
         tickets.add(ticket);

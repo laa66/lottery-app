@@ -48,6 +48,8 @@ public class SecurityConfig {
                 .permitAll()
                 .requestMatchers("/", "/join/**")
                 .permitAll()
+                .requestMatchers("/user/save")
+                .permitAll()
                 .requestMatchers("/user/delete")
                 .hasRole("ADMIN")
                 .requestMatchers("/user/panel", "/user/save", "/user/saveTicket")

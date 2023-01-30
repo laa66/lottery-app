@@ -19,46 +19,60 @@
 
             <body class="main">
                 <main class="form-signin">
-                    <form>
+                    <form:form action="${pageContext.request.contextPath}/user/save" modelAttribute="userValid" method="POST">
                       <p class="sign-title">Registration</p>
-                  
+                      
+                      <form:errors path = "email" class="error" />
                       <div class="form-floating">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <form:input path="email" type="text" class="form-control" id="floatingInput" placeholder="name@example.com"/>
                         <label for="floatingInput">Email address</label>
                       </div>
                       <br>
+                      <form:errors path = "firstName" class="error"/>
                       <div class="form-floating">
-                        <input type="text" class="form-control" id="floatingPassword" placeholder="First name">
+                        <form:input path="firstName" type="text" class="form-control" id="floatingPassword" placeholder="First name"/>
                         <label for="floatingPassword">First name</label>
                       </div>
                       <br>
+                      <form:errors path = "lastName" class="error"/>
                       <div class="form-floating">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Last name">
+                        <form:input path="lastName" type="text" class="form-control" id="floatingInput" placeholder="Last name"/>
                         <label for="floatingInput">Last name</label>
                       </div>
                       <br>
+                      <form:errors path = "birthDate" class="error"/>
                       <div class="form-floating">
-                        <input type="date" class="form-control" id="floatingInput" placeholder="Birth date">
+                        <form:input path="birthDate" type="date" class="form-control" id="floatingInput" placeholder="Birth date"/>
                         <label for="floatingInput">Birth date</label>
                       </div>
                       <br>
+                      <form:errors path = "username" class="error"/>
                       <div class="form-floating">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="username">
+                        <form:input path="username" type="text" class="form-control" id="floatingInput" placeholder="username"/>
                         <label for="floatingInput">Username</label>
                       </div>
                       <br>
+                      <form:errors path = "" class="error"/>
                       <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingInput" placeholder="password">
+                        <form:input path="password" type="password" class="form-control" id="floatingInput" placeholder="password"/>
                         <label for="floatingInput">Password</label>
                       </div>
                       <br>
+                      <form:errors path = "confirmPassword" class="error"/>
                       <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingInput" placeholder="password">
+                        <form:input path="confirmPassword" type="password" class="form-control" id="floatingInput" placeholder="password"/>
                         <label for="floatingInput">Confirm password</label>
                       </div>
                       <br>
                       <button class="header-button" id="sign-button" type="submit">Sign Up</button>
-                    </form>
+                      <div class="mt-4">
+                        <a href="${pageContext.request.contextPath}/join/login" class="text-secondary"><p class="text-center">Already have an account? Sign in.</p></a>
+                      </div>
+                      <div>
+                        <a href="${pageContext.request.contextPath}/" class="text-secondary"><p class="text-center">Return to Home page</p></a>
+                      </div>
+
+                    </form:form>
                   </main>
             </body>
 
