@@ -4,6 +4,7 @@ import com.laa66.springmvc.lottery.app.dao.UserDAO;
 import com.laa66.springmvc.lottery.app.entity.Role;
 import com.laa66.springmvc.lottery.app.entity.Ticket;
 import com.laa66.springmvc.lottery.app.entity.User;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.*;
 
@@ -29,6 +31,12 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDAO.getUser(username);
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), mapRoles(user.getRoles()));
+    }
+
+    @Override
+    @Transactional
+    public User loadRegularUserByUsername(String username) {
+        return userDAO.getUser(username);
     }
 
     @Override
@@ -59,12 +67,6 @@ public class UserServiceImpl implements UserService {
         userDAO.deleteUser(user);
     }
 
-    @Override
-    @Transactional
-    public void addTicket(int userId, Ticket ticket) {
-        User user = getUser(userId);
-        user.addTicket(ticket);
-    }
 
     // helpers
     private Collection<? extends GrantedAuthority> mapRoles(Collection<Role> collection) {

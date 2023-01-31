@@ -1,22 +1,18 @@
 package com.laa66.springmvc.lottery.app.controller;
 
-
-import com.laa66.springmvc.lottery.app.entity.Role;
+import com.laa66.springmvc.lottery.app.entity.Ticket;
 import com.laa66.springmvc.lottery.app.entity.User;
+import com.laa66.springmvc.lottery.app.service.TicketService;
 import com.laa66.springmvc.lottery.app.service.UserService;
+import com.laa66.springmvc.lottery.app.validate.TicketNumbersValid;
 import com.laa66.springmvc.lottery.app.validate.UserValid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-
 
 @Controller
 @RequestMapping("/user")
@@ -24,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TicketService ticketService;
 
     @GetMapping("/panel")
     public String showUserPanel() {
@@ -43,7 +42,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public String updateUser(@ModelAttribute Model model) {
+    public String updateUser() {
         return null;
     }
 
@@ -53,8 +52,9 @@ public class UserController {
     }
 
     @PostMapping("/saveTicket")
-    public String saveTicket() {
-        return null;
+    public String saveTicket(@Valid @ModelAttribute("ticketNumbers") TicketNumbersValid ticketNumbersValid, BindingResult bindingResult) {
+        System.out.println(ticketNumbersValid);
+        return "ticket-confirmation";
     }
 
 

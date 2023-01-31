@@ -19,6 +19,7 @@ public class JoinController {
     public String showLoginForm() {
         return "login";
     }
+
     @GetMapping("/signup")
     public String showRegistrationForm(Model model) {
         model.addAttribute("userValid", new UserValid());

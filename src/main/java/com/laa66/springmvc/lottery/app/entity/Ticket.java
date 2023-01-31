@@ -31,6 +31,10 @@ public class Ticket {
 
     }
 
+    public Ticket(Set<Integer> numbers) {
+        this.numbers = numbers;
+    }
+
     public int getId() {
         return id;
     }

@@ -79,7 +79,7 @@
                     </div>
 
                     <!-- Show different section based on user action -->
-                    <!-- Block YOUR NUMBERS section and Play the lottery section if user is not logged in -->
+                    <!-- Block 'YOUR NUMBERS' section and 'PLAY THE LOTTERY' section if user is not logged in -->
 
                     <div class="numbers-history-title">
 
@@ -166,16 +166,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="drawResult" items="${allNumbers}">
+                                    <c:forEach var="ticket" items="${userLastTickets}">
                                         <tr>
                                             <td>
-                                                <c:out value="${drawResult.dateString}" />
+                                                <c:out value="${ticket.date}" />
                                             </td>
                                             <td>
-                                                <c:forEach var="historicalNumber" items="${drawResult.numbers}">
-                                                    ${historicalNumber}
+                                                <c:out value="${ticket.drawDate}" />
+
+                                            </td>
+                                            <td>
+                                                <c:forEach var="number" items="${ticket.numbers}">
+                                                    ${number}
                                                 </c:forEach>
                                             </td>
+                                        
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -183,38 +188,33 @@
                         </div>
 
                         <div id="play-lottery" class="numbers-history" style="display: none">
-                            <form action="">
+
+                            <form:form action="${pageContext.request.contextPath}/user/saveTicket" modelAttribute="ticketNumbers" method="POST">
                                 <p>Enter <i style="color: goldenrod;">6</i> numbers and submit them to participate in
                                     the draw</p>
                                 <div class="row g-3">
                                     <div class="col-sm">
-                                        <input type="number" min=0 max="100" class="form-control" placeholder="1"
-                                            aria-label="Zip">
+                                        <form:input path="field1" type="number" min="0" max="100" class="form-control"/>
                                     </div>
                                     <div class="col-sm">
-                                        <input type="number" min=0 max="100" class="form-control" placeholder="2"
-                                            aria-label="Zip">
+                                        <form:input path="field2" type="number" min="0" max="100" class="form-control"/>
                                     </div>
                                     <div class="col-sm">
-                                        <input type="number" min=0 max="100" class="form-control" placeholder="3"
-                                            aria-label="Zip">
+                                        <form:input path="field3" type="number" min="0" max="100" class="form-control"/>
                                     </div>
                                     <div class="col-sm">
-                                        <input type="number" min=0 max="100" class="form-control" placeholder="4"
-                                            aria-label="Zip">
+                                        <form:input path="field4" type="number" min="0" max="100" class="form-control"/>
                                     </div>
                                     <div class="col-sm">
-                                        <input type="number" min=0 max="100" class="form-control" placeholder="5"
-                                            aria-label="Zip">
+                                        <form:input path="field5" type="number" min="0" max="100" class="form-control"/>
                                     </div>
                                     <div class="col-sm">
-                                        <input type="number" min=0 max="100" class="form-control" placeholder="6"
-                                            aria-label="Zip">
+                                        <form:input path="field6" type="number" min="0" max="100" class="form-control"/>
                                     </div>
                                 </div>
                                 <br>
-                                <button class="header-button">Submit</button>
-                            </form>
+                                <button class="header-button" type="submit">Submit</button>
+                            </form:form>
                         </div>
 
                         <script>
