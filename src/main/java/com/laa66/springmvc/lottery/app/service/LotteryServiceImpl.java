@@ -53,7 +53,7 @@ public class LotteryServiceImpl implements LotteryService {
 
     // helpers
     public void mapDatesToString(List<DrawResult> list) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         for (DrawResult drawResult: list) drawResult.setDateString(formatter.format(drawResult.getDate()));
     }
 }

@@ -9,15 +9,15 @@ import java.util.regex.Pattern;
  *  if password is correct (match PASSWORD_PATTERN)
  *  if two given passwords are the same
  */
-public class PasswordValidator implements ConstraintValidator<ValidPassword, UserValid> {
+public class PasswordValidator implements ConstraintValidator<ValidPassword, UserForm> {
     private final static Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$");
 
     @Override
-    public boolean isValid(UserValid object, ConstraintValidatorContext context) {
+    public boolean isValid(UserForm object, ConstraintValidatorContext context) {
         if (object == null) return false;
-        UserValid userValid = (UserValid) object;
-        String password = userValid.getPassword();
-        String confirmPassword = userValid.getConfirmPassword();
+        UserForm userForm = (UserForm) object;
+        String password = userForm.getPassword();
+        String confirmPassword = userForm.getConfirmPassword();
         if (PASSWORD_PATTERN.matcher(password).matches()) {
             return password.equals(confirmPassword);
         }

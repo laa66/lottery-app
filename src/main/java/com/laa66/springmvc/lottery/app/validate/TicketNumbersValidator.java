@@ -12,7 +12,7 @@ import java.util.Set;
  *  if there are exactly 6 numbers
  */
 
-public class TicketNumbersValidator implements ConstraintValidator<ValidTicketNumbers, TicketNumbersValid > {
+public class TicketNumbersValidator implements ConstraintValidator<ValidTicketNumbers, TicketForm> {
 
     @Override
     public void initialize(ValidTicketNumbers constraintAnnotation) {
@@ -20,7 +20,7 @@ public class TicketNumbersValidator implements ConstraintValidator<ValidTicketNu
     }
 
     @Override
-    public boolean isValid(TicketNumbersValid object, ConstraintValidatorContext context) {
+    public boolean isValid(TicketForm object, ConstraintValidatorContext context) {
         HashSet<Integer> numbers = new HashSet<>(List.of(
                 object.getField1(),
                 object.getField2(),

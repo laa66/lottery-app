@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
  */
 
 @ValidPassword(message = "Incorrect password")
-public class UserValid {
+public class UserForm {
 
     @NotBlank(message = "Field cannot be empty")
     @Email(message = "Wrong email address")
@@ -37,7 +37,7 @@ public class UserValid {
     @NotBlank(message = "Field cannot be empty")
     private String confirmPassword;
 
-    public UserValid() {
+    public UserForm() {
 
     }
 

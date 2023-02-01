@@ -18,11 +18,10 @@
 
             <body class="main">
                 <div class="container">
-                    <p class="fs-1 text-center mt-5">Congratulations!</p>
-                    <p class="fs-2 text-center mt-5">Your lottery ticket has been saved</p>
-                    <p class="fs-3 text-center mt-5">Date of the next lottery draw: ${nextLotteryDate}</p>
+                    <p class="fs-1 text-center mt-5">Error!</p>
+                    <p class="fs-2 text-center mt-5">You entered wrong data. Try again.</p>
+                    <p class="fs-3 text-center mt-5 md-5">Tip: Make sure all fields are correct and provided</p>
                     <p class="fs-4 text-center mt-5"><a href="${pageContext.request.contextPath}/">Return to Home Page</a></p>
-                    
                 </div>
 
 

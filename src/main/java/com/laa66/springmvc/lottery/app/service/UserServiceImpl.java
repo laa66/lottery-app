@@ -2,9 +2,7 @@ package com.laa66.springmvc.lottery.app.service;
 
 import com.laa66.springmvc.lottery.app.dao.UserDAO;
 import com.laa66.springmvc.lottery.app.entity.Role;
-import com.laa66.springmvc.lottery.app.entity.Ticket;
 import com.laa66.springmvc.lottery.app.entity.User;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

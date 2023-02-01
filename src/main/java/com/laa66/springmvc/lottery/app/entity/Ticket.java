@@ -18,11 +18,14 @@ public class Ticket {
     @Column(name = "draw_date")
     private LocalDateTime drawDate;
 
+    @Transient
+    private String dateString;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "ticket_numbers", joinColumns = @JoinColumn(name = "ticket_id"))
     @Column(name = "number")
     private Set<Integer> numbers;
@@ -77,12 +80,6 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket{" +
-                "id=" + id +
-                ", date=" + date +
-                ", drawDate=" + drawDate +
-                ", user=" + user +
-                ", numbers=" + numbers +
-                '}';
+        return id + " " + numbers;
     }
 }

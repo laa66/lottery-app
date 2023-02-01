@@ -6,7 +6,7 @@ import java.util.Set;
 
 public interface TicketService {
 
-    void addTicket(String username, Ticket ticket);
+    void addTicket(int id, Ticket ticket);
 
     Set<Ticket> getUserTickets(int id);
 }

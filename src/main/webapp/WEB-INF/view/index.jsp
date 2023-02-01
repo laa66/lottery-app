@@ -155,7 +155,7 @@
 
                         </div>
 
-
+                        <security:authorize access="isAuthenticated()">
                         <div id="your-numbers" class="numbers-history" style="display: none">
                             <table class="table table-hover">
                                 <thead>
@@ -186,36 +186,39 @@
                                 </tbody>
                             </table>
                         </div>
+                        </security:authorize>
 
-                        <div id="play-lottery" class="numbers-history" style="display: none">
+                        <security:authorize access="isAuthenticated()">
+                            <div id="play-lottery" class="numbers-history" style="display: none">
 
-                            <form:form action="${pageContext.request.contextPath}/user/saveTicket" modelAttribute="ticketNumbers" method="POST">
-                                <p>Enter <i style="color: goldenrod;">6</i> numbers and submit them to participate in
-                                    the draw</p>
-                                <div class="row g-3">
-                                    <div class="col-sm">
-                                        <form:input path="field1" type="number" min="0" max="100" class="form-control"/>
+                                <form:form action="${pageContext.request.contextPath}/user/saveTicket/${loggedUserId}" modelAttribute="ticketNumbers" method="POST">
+                                    <p>Enter <i style="color: goldenrod;">6</i> numbers and submit them to participate in
+                                        the draw</p>
+                                    <div class="row g-3">
+                                        <div class="col-sm">
+                                            <form:input path="field1" type="number" min="0" max="100" class="form-control"/>
+                                        </div>
+                                        <div class="col-sm">
+                                            <form:input path="field2" type="number" min="0" max="100" class="form-control"/>
+                                        </div>
+                                        <div class="col-sm">
+                                            <form:input path="field3" type="number" min="0" max="100" class="form-control"/>
+                                        </div>
+                                        <div class="col-sm">
+                                            <form:input path="field4" type="number" min="0" max="100" class="form-control"/>
+                                        </div>
+                                        <div class="col-sm">
+                                            <form:input path="field5" type="number" min="0" max="100" class="form-control"/>
+                                        </div>
+                                        <div class="col-sm">
+                                            <form:input path="field6" type="number" min="0" max="100" class="form-control"/>
+                                        </div>
                                     </div>
-                                    <div class="col-sm">
-                                        <form:input path="field2" type="number" min="0" max="100" class="form-control"/>
-                                    </div>
-                                    <div class="col-sm">
-                                        <form:input path="field3" type="number" min="0" max="100" class="form-control"/>
-                                    </div>
-                                    <div class="col-sm">
-                                        <form:input path="field4" type="number" min="0" max="100" class="form-control"/>
-                                    </div>
-                                    <div class="col-sm">
-                                        <form:input path="field5" type="number" min="0" max="100" class="form-control"/>
-                                    </div>
-                                    <div class="col-sm">
-                                        <form:input path="field6" type="number" min="0" max="100" class="form-control"/>
-                                    </div>
-                                </div>
-                                <br>
-                                <button class="header-button" type="submit">Submit</button>
-                            </form:form>
-                        </div>
+                                    <br>
+                                    <button class="header-button" type="submit">Submit</button>
+                                </form:form>
+                            </div>
+                        </security:authorize>
 
                         <script>
 

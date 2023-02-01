@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidTicketNumbers {
-    String message() default "Incorrect ticket numbers";
+    String message() default "Incorrect numbers";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

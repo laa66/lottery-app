@@ -1,6 +1,6 @@
 package com.laa66.springmvc.lottery.app.controller;
 
-import com.laa66.springmvc.lottery.app.validate.UserValid;
+import com.laa66.springmvc.lottery.app.validate.UserForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +22,7 @@ public class JoinController {
 
     @GetMapping("/signup")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("userValid", new UserValid());
+        model.addAttribute("userForm", new UserForm());
         return "signup";
     }
 }

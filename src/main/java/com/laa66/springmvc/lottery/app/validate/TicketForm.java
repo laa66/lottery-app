@@ -1,7 +1,9 @@
 package com.laa66.springmvc.lottery.app.validate;
 
+import javax.persistence.Entity;
+
 @ValidTicketNumbers
-public class TicketNumbersValid {
+public class TicketForm {
 
     private int field1;
 
@@ -15,7 +17,7 @@ public class TicketNumbersValid {
 
     private int field6;
 
-    public TicketNumbersValid() {
+    public TicketForm() {
 
     }
 
