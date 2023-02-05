@@ -21,7 +21,7 @@
                 <div class="header">
 
                     <div class="header-content header-logo">
-                        <h1>Lottery Web App</h1>
+                        <h1 onclick="window.location.href='${pageContext.request.contextPath}/';return false;">Lottery Web App</h1>
                     </div>
 
                     <div class="header-content header-hello">
@@ -42,10 +42,15 @@
                                   User - <security:authentication property="principal.username"/>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                  <button class="dropdown-item" type="button">Settings</button>
-                                  <form:form action="${pageContext.request.contextPath}/logout" method="POST">
-                                        <button class="dropdown-item" type="submit">Logout</button>
+
+                                <form:form action="${pageContext.request.contextPath}/user/panel/${loggedUserId}" method="GET">
+                                    <button class="dropdown-item" type="submit">Settings</button>
                                 </form:form>
+
+                                <form:form action="${pageContext.request.contextPath}/logout" method="POST">
+                                    <button class="dropdown-item" type="submit">Logout</button>
+                                </form:form>
+
                                 </div>
                               </div>
                            
@@ -104,11 +109,14 @@
                         </div>
 
                         <div id="temp-div" class="numbers-history">
+                            <div class="section-title">
+                                <p>Results of recent lottery draws.</p>
+                            </div>
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col">Lottery Date</th>
-                                        <th scope="col">Numbers</th>
+                                        <th scope="col" colspan="6">Numbers</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -117,11 +125,11 @@
                                             <td>
                                                 <c:out value="${drawResult.dateString}" />
                                             </td>
-                                            <td>
+                                           
                                                 <c:forEach var="historicalNumber" items="${drawResult.numbers}">
-                                                    ${historicalNumber}
+                                                   <td>${historicalNumber}</td>
                                                 </c:forEach>
-                                            </td>
+                                          
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -130,11 +138,15 @@
 
 
                         <div id="historical-numbers" class="numbers-history" style="display: none;">
+                            <div class="section-title">
+                                <p>Results of recent lottery draws.</p>
+                                
+                            </div>
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col">Lottery Date</th>
-                                        <th scope="col">Numbers</th>
+                                        <th scope="col" colspan="6">Numbers</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -143,11 +155,11 @@
                                             <td>
                                                 <c:out value="${drawResult.dateString}" />
                                             </td>
-                                            <td>
-                                                <c:forEach var="historicalNumber" items="${drawResult.numbers}">
-                                                    ${historicalNumber}
-                                                </c:forEach>
-                                            </td>
+                                            
+                                            <c:forEach var="historicalNumber" items="${drawResult.numbers}">
+                                                <td>${historicalNumber}</td>
+                                            </c:forEach>
+                                            
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -157,16 +169,19 @@
 
                         <security:authorize access="isAuthenticated()">
                         <div id="your-numbers" class="numbers-history" style="display: none">
+                            <div class="section-title">
+                                <p>Here you can check your latest lucky numbers.</p>
+                            </div>
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col">Purchase Date</th>
                                         <th scope="col">Lottery Date</th>
-                                        <th scope="col">Numbers</th>
+                                        <th scope="col" colspan="6">Numbers</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="ticket" items="${userLastTickets}">
+                                    <c:forEach var="ticket" items="${userTickets}">
                                         <tr>
                                             <td>
                                                 <c:out value="${ticket.date}" />
@@ -175,11 +190,11 @@
                                                 <c:out value="${ticket.drawDate}" />
 
                                             </td>
-                                            <td>
+                                          
                                                 <c:forEach var="number" items="${ticket.numbers}">
-                                                    ${number}
+                                                    <td>${number}</td>
                                                 </c:forEach>
-                                            </td>
+                                          
                                         
                                         </tr>
                                     </c:forEach>
@@ -190,7 +205,11 @@
 
                         <security:authorize access="isAuthenticated()">
                             <div id="play-lottery" class="numbers-history" style="display: none">
-
+                                <div class="section-title">
+                                    <p>Here you can take part in the lottery. The draw takes place everyday at 10 pm and results are immediately
+                                        updated on our home page.
+                                    </p>
+                                </div>
                                 <form:form action="${pageContext.request.contextPath}/user/saveTicket/${loggedUserId}" modelAttribute="ticketNumbers" method="POST">
                                     <p>Enter <i style="color: goldenrod;">6</i> numbers and submit them to participate in
                                         the draw</p>

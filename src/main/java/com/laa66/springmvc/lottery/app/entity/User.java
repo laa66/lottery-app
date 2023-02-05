@@ -29,10 +29,10 @@ public class User {
 
     private boolean enabled;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Ticket> tickets;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Role> roles;
 
     public User() {
@@ -148,8 +148,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", birthDate=" + birthDate +
                 ", email='" + email + '\'' +
-                ", tickets=" + tickets +
-                ", roles=" + roles +
+                ", enabled=" + enabled +
                 '}';
     }
 }

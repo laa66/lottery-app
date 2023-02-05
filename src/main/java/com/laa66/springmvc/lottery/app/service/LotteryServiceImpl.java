@@ -29,7 +29,7 @@ public class LotteryServiceImpl implements LotteryService {
         return drawResultDAO.getLastDrawResult();
     }
 
-    // support delete operation but it's not used in application
+    // ADMIN-ONLY
     @Override
     @Transactional
     public void deleteDrawResult(int id) {

@@ -19,7 +19,7 @@
 
             <body class="main">
                 <main class="form-signin">
-                    <form:form action="${pageContext.request.contextPath}/user/save" modelAttribute="userValid" method="POST">
+                    <form:form action="${pageContext.request.contextPath}/user/save" modelAttribute="userForm" method="POST">
                       <p class="sign-title">Registration</p>
                       
                       <form:errors path = "email" class="error" />

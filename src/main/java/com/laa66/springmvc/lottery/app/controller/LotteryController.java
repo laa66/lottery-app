@@ -11,12 +11,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-// TODO: 01.02.2023 DATE FORMATTING IN JS get rid of @Transient fields in class Ticket and class DrawResult
-// TODO: 01.02.2023 EXCEPTION HANDLING IN CONTROLLERS
+// TODO: 01.02.2023 $SERVICES? MAP USERS TO UserForm and implement USER PANEL and ADMIN PANEL
+// TODO: 01.02.2023 $ENTITY_CLASSES DATE FORMATTING IN JS get rid of @Transient fields in class Ticket and class DrawResult
+// TODO: 02.02.2023 $HOMEPAGE sorting your last number desc with date
+// TODO: 05.02.2023 WHEN ADDING NEW TICKET SEND ALSO USER ID TO UPLOAD FRESH DATA TO CONFIRMATION PAGE
+// TODO: 05.02.2023 $GLOBAL EXCEPTION HANDLING IN CONTROLLERS
 @Controller
 public class LotteryController {
 
@@ -39,7 +43,7 @@ public class LotteryController {
 
         if (authentication != null && authentication.isAuthenticated()) {
             User user = userService.loadRegularUserByUsername(authentication.getName());
-            model.addAttribute("userLastTickets", ticketService.getUserTickets(user.getId()));
+            model.addAttribute("userTickets", ticketService.getUserTickets(user.getId()));
             model.addAttribute("loggedUserId", user.getId());
             model.addAttribute("ticketNumbers", new TicketForm());
         }
@@ -58,5 +62,10 @@ public class LotteryController {
                 .plusDays(1)
                 .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")));
         return "ticket-confirmation";
+    }
+
+    @PostMapping("/draw")
+    public String saveDrawResult() {
+        return null;
     }
 }
