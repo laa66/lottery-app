@@ -1,5 +1,6 @@
 package com.laa66.springmvc.lottery.app.service;
 
+import com.laa66.springmvc.lottery.app.dao.TicketDAO;
 import com.laa66.springmvc.lottery.app.dao.UserDAO;
 import com.laa66.springmvc.lottery.app.entity.Ticket;
 import com.laa66.springmvc.lottery.app.entity.User;
@@ -10,13 +11,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class TicketServiceImpl implements TicketService {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private TicketDAO ticketDAO;
+
+    @Override
+    @Transactional
+    public List<Ticket> getAllTickets() {
+        return ticketDAO.getAllTickets();
+    }
 
     @Override
     @Transactional

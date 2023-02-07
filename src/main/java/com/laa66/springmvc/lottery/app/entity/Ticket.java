@@ -18,9 +18,6 @@ public class Ticket {
     @Column(name = "draw_date")
     private LocalDateTime drawDate;
 
-    @Transient
-    private String dateString;
-
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -32,6 +29,13 @@ public class Ticket {
 
     public Ticket() {
 
+    }
+
+    public Ticket(int id, LocalDateTime date, LocalDateTime drawDate, Set<Integer> numbers) {
+        this.id = id;
+        this.date = date;
+        this.drawDate = drawDate;
+        this.numbers = numbers;
     }
 
     public Ticket(Set<Integer> numbers) {

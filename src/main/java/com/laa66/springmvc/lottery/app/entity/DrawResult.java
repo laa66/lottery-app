@@ -3,7 +3,6 @@ package com.laa66.springmvc.lottery.app.entity;
 import javax.persistence.*;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,9 +25,6 @@ public class DrawResult {
 
     @Column(name = "date_time")
     private LocalDateTime date;
-
-    @Transient
-    private String dateString;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "draw_result_numbers",joinColumns = @JoinColumn(name = "draw_result_id"))
@@ -70,14 +66,6 @@ public class DrawResult {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
-    }
-
-    public String getDateString() {
-        return dateString;
-    }
-
-    public void setDateString(String dateString) {
-        this.dateString = dateString;
     }
 
     @Override

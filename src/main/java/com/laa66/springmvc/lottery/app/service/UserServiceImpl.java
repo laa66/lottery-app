@@ -1,8 +1,8 @@
 package com.laa66.springmvc.lottery.app.service;
 
 import com.laa66.springmvc.lottery.app.dao.UserDAO;
-import com.laa66.springmvc.lottery.app.entity.Role;
 import com.laa66.springmvc.lottery.app.entity.User;
+import com.laa66.springmvc.lottery.app.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -52,10 +52,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void saveUser(User user) {
-        user.setId(0);
-        user.setEnabled(true);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Collections.singleton(new Role("ROLE_USER", user)));
         userDAO.saveUser(user);
     }
 

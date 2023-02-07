@@ -101,41 +101,46 @@
                 <div class="hide" id="home">
                     <p class="section-title">Welcome back, ${userLogged.firstName}!</p>
                     <p>This is your summary.</p>
-                    <p>In this panel you can track your statistics and access your account settings.</p>
+                    <p>In this panel you can track your statistics and access account settings.</p>
                     <hr>
                     <div class="container container-stats">
                         <div class="stats-block">
                             <span>
-                                <p style="font-size: 30px;">20</p>
-                                <p style="font-size: 20px;">This is your stats block.</p>
+                                <p style="font-size: 30px;">${userTicketSummary}</p>
+                                <p style="font-size: 20px;">Your total lottery tickets</p>
+                            </span>  
+                          </div>
+                      <security:authorize access="hasRole('ROLE_ADMIN')">
+                        <div class="stats-block">
+                            <span>
+                                <p style="font-size: 30px;">${allTicketSummary}</p>
+                                <p style="font-size: 20px;">Total lottery tickets</p>
                             </span>  
                           </div>
                       <div class="stats-block">
                         <span>
-                            <p style="font-size: 30px;">20</p>
-                            <p style="font-size: 20px;">This is your stats block.</p>
+                            <p style="font-size: 30px;">${allUserSummary}</p>
+                            <p style="font-size: 20px;">Total registered Users</p>
                         </span>  
                       </div>
                       <div class="stats-block">
                         <span>
-                            <p style="font-size: 30px;">20</p>
-                            <p style="font-size: 20px;">This is your stats block.</p>
+                            <p style="font-size: 30px;">${allDrawSummary}</p>
+                            <p style="font-size: 20px;">Total number of draws</p>
                         </span>  
                       </div>
-                      <div class="stats-block">
-                        <span>
-                            <p style="font-size: 30px;">20</p>
-                            <p style="font-size: 20px;">This is your stats block.</p>
-                        </span>  
-                      </div>
+                    </security:authorize>
                 </div>
-            </div>
+                </div>
 
                 <!-- user management -->
                 <div class="hide" id="user-management">
                     <p class="section-title">User management</p>
                     <p>Admin user management panel - here you can add new users, enable and delete their account</p>
-                    <button class="header-button" type="submit">Add new user</button>
+                    <c:url value="/user/create" var="url">
+                      <c:param name="loggedUserId" value="${loggedUserId}" />
+                    </c:url>
+                    <button class="header-button" type="button" onclick="window.location.href='${url}'">Add new user</button>
                     <hr>
                     <br>
 
@@ -143,15 +148,10 @@
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">First name</th>
-                                <th scope="col">Last name</th>
                                 <th scope="col">Username</th>
-                                <th scope="col">Birthdate</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Enabled</th>
                                 <th scope="col">Action</th>
                                 
-
                             </tr>
                         </thead>
                         <tbody>
@@ -161,30 +161,14 @@
                                         <c:out value="${user.id}"/>
                                     </td>
                                     <td>
-                                        <c:out value="${user.firstName}"/>
-                                    </td>
-                                    <td>
-                                       <c:out value="${user.lastName}"/>
-                                    </td>
-                                    <td>
                                         <c:out value="${user.username}"/>
-                                     </td>
-                                     <td>
-                                        <c:out value="${user.birthDate}"/>
                                      </td>
                                      <td>
                                         <c:out value="${user.email}"/>
                                      </td>
                                      <td>
-                                        <select name="userEnabled" id="enabled">
-                                            <option value="" disabled hidden selected>${user.enabled}</option>
-                                            <option value="True">True</option>
-                                            <option value="False">False</option>
-                                        </select>
+                                        <a href="${pageContext.request.contextPath}/user/info/${user.id}" class="text-secondary">Options</a>
                                     </td>
-                                     <td>
-                                        Delete ${user.id}
-                                     </td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -195,7 +179,10 @@
                 <div class="hide" id="lottery-management">
                     <p class="section-title">Lottery management</p>
                     <p>Admin lottery management panel</p>
-                    <button class="header-button" type="submit">Draw</button>
+                    <c:url value="/draw" var="url">
+                        <c:param name="loggedUserId" value="${loggedUserId}" />
+                    </c:url>
+                    <button class="header-button" type="button"  onclick="window.location.href='${url}'">Draw</button>
                     <br>
                     <i style="color: rgb(97, 97, 97);">Note - use this option only when necessary!</i>
                     <hr>
@@ -217,7 +204,7 @@
                                         <c:out value="${drawResult.id}"/>
                                     </td>
                                     <td>
-                                        <c:out value="${drawResult.date}"/>
+                                        <div class="format-date">${drawResult.date}</div>
                                     </td>
                                     <c:forEach var="number" items="${drawResult.numbers}">
                                             <td> ${number}</td>
@@ -227,7 +214,6 @@
                         </tbody>
                     </table>
                 </div>
-
 
                 <!-- ticket history -->
                 <div class="hide" id="numbers-history">
@@ -247,11 +233,10 @@
                             <c:forEach var="ticket" items="${userHistory}">
                                 <tr>
                                     <td>
-                                        <c:out value="${ticket.date}" />
+                                        <div class="format-date">${ticket.date}</div>
                                     </td>
                                     <td>
-                                        <c:out value="${ticket.drawDate}" />
-
+                                        <div class="format-date">${ticket.drawDate}</div>
                                     </td>
                                     
                                         <c:forEach var="number" items="${ticket.numbers}">
@@ -269,8 +254,8 @@
                    <div id="form-save-layout">
                     <p class="section-title">User details</p>
                     <p>Change your account details</p>
-                <hr>
-                    <form:form action="${pageContext.request.contextPath}/user/save" modelAttribute="userForm" method="POST">
+                     <hr>
+                    <form:form action="${pageContext.request.contextPath}/user/save/${userLogged.id}" modelAttribute="userLogged" method="POST">
               
                     <form:errors path = "email" class="error" />
                     <div class="form-floating">
@@ -295,12 +280,6 @@
                       </div>
                     </div>
                     <br>
-                    <form:errors path = "birthDate" class="error"/>
-                    <div class="form-floating">
-                      <form:input path="birthDate" type="date" class="form-control" id="floatingInput" placeholder="Birth date"/>
-                      <label for="floatingInput">Birth date</label>
-                    </div>
-                    <br>
                     <form:errors path = "username" class="error"/>
                     <div class="form-floating">
                       <form:input path="username" type="text" class="form-control" id="floatingInput" placeholder="username"/>
@@ -309,20 +288,23 @@
                     <br>
 
                     <div class="row gx-2 w-100 ms-0">
+                        <div class="col-6">
+                            <form:errors class="error"/>
+                            <div class="form-floating">
+                              <form:input path="" type="password" class="form-control" id="floatingInput" placeholder="password" value="notapassword"/>
+                              <label for="floatingInput">Old password</label>
+                            </div>
+                        </div>
                       <div class="col-6">
                           <form:errors path = "" class="error"/>
                           <div class="form-floating">
                             <form:input path="password" type="password" class="form-control" id="floatingInput" placeholder="password"/>
-                            <label for="floatingInput">Password</label>
+                            <label for="floatingInput">New Password</label>
                           </div>
                       </div>
-                      <div class="col-6">
-                          <form:errors path = "confirmPassword" class="error"/>
-                          <div class="form-floating">
-                            <form:input path="confirmPassword" type="password" class="form-control" id="floatingInput" placeholder="password"/>
-                            <label for="floatingInput">Confirm password</label>
-                          </div>
-                      </div>
+                      <form:input path="enabled" type="hidden" value="true"/>
+                      <form:input path="birthDate" type="hidden"/>
+               
                     </div>
                     <br>
                     <button class="header-button" id="sign-button" type="submit">Save</button>
@@ -334,6 +316,11 @@
 
                 <!-- JS Additional scripts -->
                 <script>
+                    const dates = document.getElementsByClassName("format-date");
+                        for (let i in dates) {
+                            dates[i].innerHTML = new Date(dates[i].innerHTML).toLocaleString();
+                        }
+
                     document.getElementById('temp-div').innerHTML = document.getElementById('home').innerHTML;
 
 
@@ -342,9 +329,6 @@
                     }
 
                 </script>
-
-
-
 
                 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
                     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"

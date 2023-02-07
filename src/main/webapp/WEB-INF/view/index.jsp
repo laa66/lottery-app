@@ -13,7 +13,7 @@
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
                     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
                     crossorigin="anonymous">
-                <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css?version=43">
+                <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css?version=33">
             </head>
 
             <body class="main">
@@ -109,9 +109,6 @@
                         </div>
 
                         <div id="temp-div" class="numbers-history">
-                            <div class="section-title">
-                                <p>Results of recent lottery draws.</p>
-                            </div>
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -123,7 +120,7 @@
                                     <c:forEach var="drawResult" items="${allNumbers}">
                                         <tr>
                                             <td>
-                                                <c:out value="${drawResult.dateString}" />
+                                               <div class="format-date">${drawResult.date}</div> 
                                             </td>
                                            
                                                 <c:forEach var="historicalNumber" items="${drawResult.numbers}">
@@ -135,7 +132,6 @@
                                 </tbody>
                             </table>
                         </div>
-
 
                         <div id="historical-numbers" class="numbers-history" style="display: none;">
                             <div class="section-title">
@@ -153,7 +149,7 @@
                                     <c:forEach var="drawResult" items="${allNumbers}">
                                         <tr>
                                             <td>
-                                                <c:out value="${drawResult.dateString}" />
+                                                <div class="format-date">${drawResult.date}</div>
                                             </td>
                                             
                                             <c:forEach var="historicalNumber" items="${drawResult.numbers}">
@@ -184,10 +180,11 @@
                                     <c:forEach var="ticket" items="${userTickets}">
                                         <tr>
                                             <td>
-                                                <c:out value="${ticket.date}" />
+                                                <div class="format-date">${ticket.date}</div>
+                                            
                                             </td>
                                             <td>
-                                                <c:out value="${ticket.drawDate}" />
+                                                <div class="format-date">${ticket.drawDate}</div>
 
                                             </td>
                                           
@@ -240,7 +237,11 @@
                         </security:authorize>
 
                         <script>
-
+                            const dates = document.getElementsByClassName("format-date");
+                            for (let i in dates) {
+                                dates[i].innerHTML = new Date(dates[i].innerHTML).toLocaleString();
+                            }
+                           
                             function showSectionWithId(divId) {
                                 document.getElementById('temp-div').innerHTML = document.getElementById(divId).innerHTML;
                             }

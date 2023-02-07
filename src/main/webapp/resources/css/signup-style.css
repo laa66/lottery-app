@@ -9,6 +9,11 @@
     width: 100%;
 }
 
+.danger-button {
+    width: 100%;
+    background-color: rgb(143, 29, 29);
+}
+
 .sign-title {
     font-size: 30px;
     width: 60%;

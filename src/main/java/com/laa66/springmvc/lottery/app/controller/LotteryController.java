@@ -1,25 +1,21 @@
 package com.laa66.springmvc.lottery.app.controller;
 
-import com.laa66.springmvc.lottery.app.entity.DrawResult;
 import com.laa66.springmvc.lottery.app.entity.User;
+import com.laa66.springmvc.lottery.app.service.UserService;
 import com.laa66.springmvc.lottery.app.service.LotteryService;
 import com.laa66.springmvc.lottery.app.service.TicketService;
-import com.laa66.springmvc.lottery.app.service.UserService;
 import com.laa66.springmvc.lottery.app.validate.TicketForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
-// TODO: 01.02.2023 $SERVICES? MAP USERS TO UserForm and implement USER PANEL and ADMIN PANEL
-// TODO: 01.02.2023 $ENTITY_CLASSES DATE FORMATTING IN JS get rid of @Transient fields in class Ticket and class DrawResult
+
 // TODO: 02.02.2023 $HOMEPAGE sorting your last number desc with date
-// TODO: 05.02.2023 WHEN ADDING NEW TICKET SEND ALSO USER ID TO UPLOAD FRESH DATA TO CONFIRMATION PAGE
 // TODO: 05.02.2023 $GLOBAL EXCEPTION HANDLING IN CONTROLLERS
 @Controller
 public class LotteryController {
@@ -35,11 +31,8 @@ public class LotteryController {
 
     @GetMapping("/")
     public String showHome(Authentication authentication, Model model) {
-        DrawResult drawResult = lotteryService.getLastDrawResult();
-        List<DrawResult> allNumbers = lotteryService.getDrawResults();
-
-        model.addAttribute("lastNumbers", drawResult);
-        model.addAttribute("allNumbers", allNumbers);
+        model.addAttribute("lastNumbers", lotteryService.getLastDrawResult());
+        model.addAttribute("allNumbers", lotteryService.getDrawResults());
 
         if (authentication != null && authentication.isAuthenticated()) {
             User user = userService.loadRegularUserByUsername(authentication.getName());
@@ -64,8 +57,9 @@ public class LotteryController {
         return "ticket-confirmation";
     }
 
-    @PostMapping("/draw")
-    public String saveDrawResult() {
-        return null;
+    @GetMapping("/draw")
+    public String saveDrawResult(@RequestParam("loggedUserId") Integer id) {
+        lotteryService.drawAndSave();
+        return "redirect:/user/panel/" + id;
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.format.DateTimeFormatter;
+
 import java.util.List;
 
 @Service
@@ -19,7 +19,6 @@ public class LotteryServiceImpl implements LotteryService {
     @Transactional
     public List<DrawResult> getDrawResults() {
         List<DrawResult> list = drawResultDAO.getDrawResults();
-        mapDatesToString(list);
         return list;
     }
 
@@ -37,6 +36,7 @@ public class LotteryServiceImpl implements LotteryService {
     }
 
     @Override
+    @Transactional
     public void drawAndSave() {
         DrawResult drawResult = new DrawResult();
         drawResult.draw();
@@ -51,9 +51,4 @@ public class LotteryServiceImpl implements LotteryService {
         drawAndSave();
     }
 
-    // helpers
-    public void mapDatesToString(List<DrawResult> list) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-        for (DrawResult drawResult: list) drawResult.setDateString(formatter.format(drawResult.getDate()));
-    }
 }

@@ -14,7 +14,7 @@ public class PasswordValidator implements ConstraintValidator<ValidPassword, Use
 
     @Override
     public boolean isValid(UserForm object, ConstraintValidatorContext context) {
-        if (object == null) return false;
+        if (object == null) return true;
         UserForm userForm = (UserForm) object;
         String password = userForm.getPassword();
         String confirmPassword = userForm.getConfirmPassword();

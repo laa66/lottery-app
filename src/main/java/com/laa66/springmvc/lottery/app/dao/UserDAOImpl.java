@@ -1,6 +1,5 @@
 package com.laa66.springmvc.lottery.app.dao;
 
-import com.laa66.springmvc.lottery.app.entity.Ticket;
 import com.laa66.springmvc.lottery.app.entity.User;
 import com.laa66.springmvc.lottery.app.exception.UserNotFoundException;
 import org.hibernate.Session;

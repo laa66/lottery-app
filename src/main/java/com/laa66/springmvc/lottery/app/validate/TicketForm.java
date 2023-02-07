@@ -1,7 +1,5 @@
 package com.laa66.springmvc.lottery.app.validate;
 
-import javax.persistence.Entity;
-
 @ValidTicketNumbers
 public class TicketForm {
 
