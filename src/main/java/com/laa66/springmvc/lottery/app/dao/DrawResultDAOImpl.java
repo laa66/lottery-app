@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-// TODO: 20.01.2023 TEST REPO
 @Repository
 public class DrawResultDAOImpl implements DrawResultDAO {
 
@@ -37,13 +36,7 @@ public class DrawResultDAOImpl implements DrawResultDAO {
     public List<DrawResult> getDrawResults() {
         Session session = sessionFactory.getCurrentSession();
         Query<DrawResult> query = session.createQuery("FROM DrawResult ORDER BY date DESC", DrawResult.class);
-        List<DrawResult> list;
-        try {
-            list = query.getResultList();
-        } catch (Exception e) {
-            list = null;
-        }
-        return list;
+        return query.getResultList();
     }
 
     @Override

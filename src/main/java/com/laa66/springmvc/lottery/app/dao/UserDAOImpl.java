@@ -20,21 +20,13 @@ public class UserDAOImpl implements UserDAO {
     public List<User> getUsers() {
         Session session = sessionFactory.getCurrentSession();
         Query<User> query = session.createQuery("FROM User", User.class);
-        List<User> users;
-        try {
-            users = query.getResultList();
-        } catch (Exception e) {
-            users = null;
-        }
-        return users;
+        return query.getResultList();
     }
 
     @Override
     public User getUser(int id) {
         Session session = sessionFactory.getCurrentSession();
-        User user = session.get(User.class, id);
-        if (user == null) throw new UserNotFoundException("User not found");
-        return user;
+        return session.get(User.class, id);
     }
 
     @Override
