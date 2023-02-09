@@ -47,7 +47,7 @@ class TicketDAOImplTest {
         User user1 = new User("Max", "Newer", "laa66", "test",
                 LocalDate.of(1997, 3, 9), "laa66@laa66.com");
         user1.setEnabled(true);
-        user1.setRoles(Collections.singleton(new Role("ROLE_ADMIN", user1)));
+        user1.addRole(new Role("ROLE_ADMIN", user1));
         Ticket ticket1 = new Ticket(new HashSet<>(List.of(1, 17, 23, 44, 70, 99)));
         user1.addTicket(ticket1);
         Ticket ticket2 = new Ticket(new HashSet<>(List.of(15, 65, 12, 13, 1, 76)));

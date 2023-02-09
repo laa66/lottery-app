@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 @Service
@@ -21,13 +22,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public UserDAO userDAO;
 
-    @Autowired
-    public PasswordEncoder passwordEncoder;
-
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDAO.getUser(username);
+        if (user == null) return null;
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), mapRoles(user.getRoles()));
     }
 

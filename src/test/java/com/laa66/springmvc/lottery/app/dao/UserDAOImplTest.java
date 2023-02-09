@@ -42,13 +42,13 @@ class UserDAOImplTest {
         User user1 = new User("Max", "Newer", "laa66", "test",
                 LocalDate.of(1997, 3, 9), "laa66@laa66.com");
         user1.setEnabled(true);
-        user1.setRoles(Collections.singleton(new Role("ROLE_ADMIN", user1)));
+        user1.addRole(new Role("ROLE_ADMIN", user1));
         session.save(user1);
 
         User user2 = new User("Mike", "Funny", "mike1", "test",
                 LocalDate.of(1998, 1,12), "mike@laa66.com");
         user2.setEnabled(true);
-        user2.setRoles(Collections.singleton(new Role("ROLE_USER", user2)));
+        user1.addRole(new Role("ROLE_USER", user2));
         session.save(user2);
         session.getTransaction().commit();
         session.close();
