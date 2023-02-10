@@ -56,7 +56,6 @@ public class LotteryController {
                 .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")));
         return "ticket-confirmation";
     }
-
     @GetMapping("/draw")
     public String saveDrawResult(@RequestParam("loggedUserId") Integer id) {
         lotteryService.drawAndSave();
