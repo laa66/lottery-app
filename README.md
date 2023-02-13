@@ -1,8 +1,9 @@
-# Spring Lottery App 🎲
+# Lottery App 🎲
+
+### Spring MVC Lottery web app with MySQL database
 <p>
-This is a Spring MVC Lottery web app. After creating an account 
-you can participate in the lottery which takes place once a day 
-at 10 pm and also you can check your latest lottery tickets.
+After creating an account you can participate in the lottery which takes place once a day 
+at 10 pm and also you can check your latest lottery tickets and update user details provided during registration.
 </p>
 
 ## How to run ⚡
@@ -67,7 +68,9 @@ Now you will be able to use regular user features of the app.
 ## TO-DO 💡
 <ul>
   <li>Additional tests for task components in Spring container</li>
+  <li>Support for sending user confirmation emails</li>
 </ul>
 
 
 ## Screenshoots 🛣️
+In progress...
