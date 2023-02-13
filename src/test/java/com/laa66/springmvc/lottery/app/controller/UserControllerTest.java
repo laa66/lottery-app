@@ -11,11 +11,9 @@ import com.laa66.springmvc.lottery.app.exception.UserNotFoundException;
 import com.laa66.springmvc.lottery.app.service.LotteryService;
 import com.laa66.springmvc.lottery.app.service.TicketService;
 import com.laa66.springmvc.lottery.app.service.UserService;
-import com.laa66.springmvc.lottery.app.validate.UserForm;
-import org.hamcrest.Matchers;
+import com.laa66.springmvc.lottery.app.dto.UserDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -40,7 +38,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.regex.Matcher;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -113,8 +110,9 @@ class UserControllerTest {
                         .param("field5", "5")
                         .param("field6", "6"))
                 .andDo(print())
-                .andExpect(status().isNotAcceptable())
-                .andExpect(result -> assertTrue(result.getResolvedException() instanceof FormErrorException));
+                .andExpect(status().isOk())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof FormErrorException))
+                .andExpect(MockMvcResultMatchers.view().name("error"));
     }
 
     @Test
@@ -148,7 +146,8 @@ class UserControllerTest {
                         .with(csrf()))
                         .andDo(print())
                         .andExpect(result -> assertTrue(result.getResolvedException() instanceof UserNotFoundException))
-                        .andExpect(status().isNotFound());
+                        .andExpect(status().isOk())
+                        .andExpect(MockMvcResultMatchers.view().name("error"));
 
         verify(userServiceMock, times(1)).getUser(1);
     }
@@ -183,8 +182,9 @@ class UserControllerTest {
         when(userServiceMock.getUser(2)).thenReturn(null);
         mockMvc.perform(MockMvcRequestBuilders.get("/user/delete/{id}", 2)
                 .param("loggedUserId", "1"))
+                .andExpect(status().isOk())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof UserNotFoundException))
-                .andExpect(status().isNotFound())
+                .andExpect(MockMvcResultMatchers.view().name("error"))
                 .andDo(print());
         verify(userServiceMock, times(1)).getUser(2);
     }
@@ -246,8 +246,10 @@ class UserControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/user/save/{id}", 2)
                 .with(csrf())
                 .param("id", "1"))
+                .andExpect(status().isOk())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof AccessErrorException))
-                .andExpect(status().isForbidden());
+                .andExpect(MockMvcResultMatchers.view().name("error"))
+                .andDo(print());
     }
 
     @Test
@@ -382,7 +384,7 @@ class UserControllerTest {
         ModelAndView mav = mvcResult.getModelAndView();
         assertEquals(1, mav.getModel().get("loggedUserId"));
         assertNotNull(mav.getModel().get("userForm"));
-        assertTrue(mav.getModel().get("userForm") instanceof UserForm);
+        assertTrue(mav.getModel().get("userForm") instanceof UserDTO);
         assertEquals(user1, mav.getModel().get("userLogged"));
         assertEquals(tickets1, mav.getModel().get("userHistory"));
         assertEquals(tickets1.size(), mav.getModel().get("userTicketSummary"));
@@ -428,7 +430,8 @@ class UserControllerTest {
         when(userServiceMock.getUser(1)).thenReturn(user);
         mockMvc.perform(MockMvcRequestBuilders.get("/user/panel/{id}", 1))
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof AccessErrorException))
-                .andExpect(status().isForbidden())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("error"))
                 .andDo(print());
     }
 

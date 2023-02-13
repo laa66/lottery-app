@@ -282,7 +282,7 @@
                     <br>
                     <form:errors path = "username" class="error"/>
                     <div class="form-floating">
-                      <form:input path="username" type="text" class="form-control" id="floatingInput" placeholder="username"/>
+                      <form:input path="username" type="text" class="form-control" id="floatingInput" placeholder="username" readonly="true"/>
                       <label for="floatingInput">Username</label>
                     </div>
                     <br>

@@ -21,6 +21,7 @@ public interface LotteryService {
     void deleteDrawResult(int id);
 
     void drawAndSave();
+
     void drawOneTimeADay();
 
 }

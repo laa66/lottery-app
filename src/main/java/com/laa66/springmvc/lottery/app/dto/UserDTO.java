@@ -1,11 +1,12 @@
-package com.laa66.springmvc.lottery.app.validate;
+package com.laa66.springmvc.lottery.app.dto;
 
 
 
+import com.laa66.springmvc.lottery.app.validate.ValidDate;
+import com.laa66.springmvc.lottery.app.validate.ValidPassword;
 import org.hibernate.validator.constraints.Email;
 
 import org.hibernate.validator.constraints.*;
-import org.springframework.stereotype.Component;
 
 /**
  *
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
  */
 
 @ValidPassword(message = "Incorrect password")
-public class UserForm {
+public class UserDTO {
 
     @NotBlank(message = "Field cannot be empty")
     @Email(message = "Wrong email address")
@@ -39,7 +40,7 @@ public class UserForm {
     @NotBlank(message = "Field cannot be empty")
     private String confirmPassword;
 
-    public UserForm() {
+    public UserDTO() {
 
     }
 

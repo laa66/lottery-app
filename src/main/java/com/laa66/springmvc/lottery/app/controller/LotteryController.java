@@ -4,7 +4,7 @@ import com.laa66.springmvc.lottery.app.entity.User;
 import com.laa66.springmvc.lottery.app.service.UserService;
 import com.laa66.springmvc.lottery.app.service.LotteryService;
 import com.laa66.springmvc.lottery.app.service.TicketService;
-import com.laa66.springmvc.lottery.app.validate.TicketForm;
+import com.laa66.springmvc.lottery.app.dto.TicketDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.format.DateTimeFormatter;
 
 
-// TODO: 02.02.2023 CHANGE forms to DTO read about DTO
-// TODO: 05.02.2023 $GLOBAL EXCEPTION HANDLING IN CONTROLLERS
 // TODO: 12.02.2023 REFACTOR Controllers Tests
 // TODO: 13.02.2023 Create bean for drawing one time a day and refactor tests
 @Controller
@@ -40,7 +38,7 @@ public class LotteryController {
             User user = userService.loadRegularUserByUsername(authentication.getName());
             model.addAttribute("userTickets", ticketService.getUserTickets(user.getId()));
             model.addAttribute("loggedUserId", user.getId());
-            model.addAttribute("ticketNumbers", new TicketForm());
+            model.addAttribute("ticketNumbers", new TicketDTO());
         }
         return "index";
     }

@@ -1,7 +1,6 @@
 package com.laa66.springmvc.lottery.app.validate;
 
-import org.springframework.stereotype.Component;
-import org.springframework.validation.annotation.Validated;
+import com.laa66.springmvc.lottery.app.dto.TicketDTO;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -15,7 +14,7 @@ import java.util.Set;
  *  if there are exactly 6 numbers
  */
 
-public class TicketNumbersValidator implements ConstraintValidator<ValidTicketNumbers, TicketForm> {
+public class TicketNumbersValidator implements ConstraintValidator<ValidTicketNumbers, TicketDTO> {
 
     @Override
     public void initialize(ValidTicketNumbers constraintAnnotation) {
@@ -23,7 +22,7 @@ public class TicketNumbersValidator implements ConstraintValidator<ValidTicketNu
     }
 
     @Override
-    public boolean isValid(TicketForm object, ConstraintValidatorContext context) {
+    public boolean isValid(TicketDTO object, ConstraintValidatorContext context) {
         System.out.println(object);
         HashSet<Integer> numbers = new HashSet<>(List.of(
                 object.getField1(),

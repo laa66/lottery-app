@@ -9,19 +9,17 @@ import com.laa66.springmvc.lottery.app.service.UserService;
 import com.laa66.springmvc.lottery.app.entity.DrawResult;
 import com.laa66.springmvc.lottery.app.service.LotteryService;
 import com.laa66.springmvc.lottery.app.service.TicketService;
-import com.laa66.springmvc.lottery.app.utils.FormUtils;
-import com.laa66.springmvc.lottery.app.validate.TicketForm;
-import com.laa66.springmvc.lottery.app.validate.UserForm;
+import com.laa66.springmvc.lottery.app.dto.TicketDTO;
+import com.laa66.springmvc.lottery.app.dto.UserDTO;
+import com.laa66.springmvc.lottery.app.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -39,7 +37,7 @@ public class UserController {
     private LotteryService lotteryService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private Mapper mapper;
 
     @GetMapping("/panel/{id}")
     public String showUserPanel(@PathVariable("id") int id, Authentication authentication, Model model) {
@@ -48,7 +46,7 @@ public class UserController {
         if (!user.getUsername().equals(authentication.getName())) throw new AccessErrorException("Access denied.");
         Set<Ticket> tickets = ticketService.getUserTickets(id);
         model.addAttribute("loggedUserId", user.getId());
-        model.addAttribute("userForm", new UserForm());
+        model.addAttribute("userForm", new UserDTO());
         model.addAttribute("userLogged", user);
         model.addAttribute("userHistory", tickets);
         model.addAttribute("userTicketSummary", tickets.size());
@@ -69,18 +67,17 @@ public class UserController {
 
     @GetMapping("/create")
     public String createUser(@RequestParam("loggedUserId") int loggedUserId, Model model) {
-        model.addAttribute("userForm", new UserForm());
+        model.addAttribute("userForm", new UserDTO());
         model.addAttribute("loggedUserId", loggedUserId);
         return "user-create";
     }
 
-    // TODO: 12.02.2023 Validating not working cannot test
     @PostMapping("/save")
-    public String saveUser(@RequestParam(required = false) Integer loggedUserId, @Valid @ModelAttribute("userForm") UserForm userForm, BindingResult bindingResult) {
+    public String saveUser(@RequestParam(required = false) Integer loggedUserId, @Valid @ModelAttribute("userForm") UserDTO userDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors() && loggedUserId == null) return "signup";
         else if (bindingResult.hasErrors()) return "redirect:/user/create?loggedUserId=" + loggedUserId;
 
-        User user = FormUtils.toUser(userForm, passwordEncoder);
+        User user = mapper.toUser(userDTO);
         userService.saveUser(user);
 
         if (loggedUserId == null) return "redirect:/";
@@ -114,18 +111,11 @@ public class UserController {
     }
 
     @PostMapping("/saveTicket/{id}")
-    public String saveTicket(@PathVariable("id") int id, @Valid @ModelAttribute("ticketNumbers") TicketForm ticketForm, BindingResult bindingResult) {
+    public String saveTicket(@PathVariable("id") int id, @Valid @ModelAttribute("ticketNumbers") TicketDTO ticketDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new FormErrorException("Wrong ticket numbers. Try again.");
         }
-        ticketService.addTicket(id, new Ticket(new HashSet<>(List.of(
-                ticketForm.getField1(),
-                ticketForm.getField2(),
-                ticketForm.getField3(),
-                ticketForm.getField4(),
-                ticketForm.getField5(),
-                ticketForm.getField6()
-        ))));
+        ticketService.addTicket(id, mapper.toTicket(ticketDTO));
         return "redirect:/ticketConfirmation";
     }
 

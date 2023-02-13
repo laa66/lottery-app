@@ -34,7 +34,8 @@ public class TicketServiceImpl implements TicketService {
     public void addTicket(int id, Ticket ticket) throws UserNotFoundException {
         User user = userDAO.getUser(id);
         if (user == null)  throw new UserNotFoundException("Invalid User ID");
-        user.addTicket(createTicket(ticket, user));
+        ticket.setUser(user);
+        user.addTicket(ticket);
     }
 
     @Override
@@ -43,17 +44,5 @@ public class TicketServiceImpl implements TicketService {
         Set<Ticket> tickets = userDAO.getUser(id).getTickets();
         Hibernate.initialize(tickets);
         return tickets;
-    }
-
-    // helpers
-    private Ticket createTicket(Ticket ticket, User user) {
-        LocalDateTime dateTime = LocalDateTime.now();
-        LocalDateTime drawDateTime = dateTime.getHour() < 22
-                ? LocalDateTime.of(dateTime.toLocalDate(), LocalTime.of(22, 0))
-                : LocalDateTime.of(dateTime.toLocalDate().plusDays(1), LocalTime.of(22,0));
-        ticket.setDate(dateTime);
-        ticket.setDrawDate(drawDateTime);
-        ticket.setUser(user);
-        return ticket;
     }
 }

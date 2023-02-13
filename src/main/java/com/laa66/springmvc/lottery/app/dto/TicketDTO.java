@@ -1,7 +1,9 @@
-package com.laa66.springmvc.lottery.app.validate;
+package com.laa66.springmvc.lottery.app.dto;
+
+import com.laa66.springmvc.lottery.app.validate.ValidTicketNumbers;
 
 @ValidTicketNumbers
-public class TicketForm {
+public class TicketDTO {
 
     private int field1;
 
@@ -15,11 +17,11 @@ public class TicketForm {
 
     private int field6;
 
-    public TicketForm() {
+    public TicketDTO() {
 
     }
 
-    public TicketForm(int field1, int field2, int field3, int field4, int field5, int field6) {
+    public TicketDTO(int field1, int field2, int field3, int field4, int field5, int field6) {
         this.field1 = field1;
         this.field2 = field2;
         this.field3 = field3;

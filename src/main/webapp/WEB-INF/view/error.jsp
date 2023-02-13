@@ -19,8 +19,9 @@
             <body class="main">
                 <div class="container">
                     <p class="fs-1 text-center mt-5">Error!</p>
-                    <p class="fs-2 text-center mt-5">You entered wrong data. Try again.</p>
-                    <p class="fs-3 text-center mt-5 md-5">Tip: Make sure all fields are correct and provided</p>
+                    <p class="fs-2 text-center mt-5">An error occurred while processing your request.</p>
+                    <p class="fs-2 text-center mt-5">Requested URL - ${url}</p>
+                    <p class="fs-3 text-center mt-5 md-5">Exception: ${exception}</p>
                     <p class="fs-4 text-center mt-5"><a href="${pageContext.request.contextPath}/">Return to Home Page</a></p>
                 </div>
 
