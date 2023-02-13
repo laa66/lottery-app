@@ -1,4 +1,4 @@
-package com.laa66.springmvc.lottery.app.utils;
+package com.laa66.springmvc.lottery.app.util;
 
 import com.laa66.springmvc.lottery.app.dto.TicketDTO;
 import com.laa66.springmvc.lottery.app.dto.UserDTO;
@@ -49,6 +49,14 @@ public class Mapper {
         ticket.setDate(dateTime);
         ticket.setDrawDate(drawDateTime);
         return ticket;
+    }
+
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
     }
 }
 

@@ -10,14 +10,11 @@ import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.ModelAndViewAssert;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.ModelAndView;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -39,26 +36,20 @@ class JoinControllerTest {
     @Test
     @WithAnonymousUser
     void testShowLoginForm() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/join/login"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/join/login"))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn();
-        ModelAndView mav = mvcResult.getModelAndView();
-        ModelAndViewAssert.assertViewName(mav, "login");
+                .andExpect(MockMvcResultMatchers.view().name("login"));
     }
 
     @Test
     @WithAnonymousUser
     void testShowRegistrationForm() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/join/signup"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/join/signup"))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attributeExists("userForm"))
-                .andReturn();
-
-        ModelAndView mav = mvcResult.getModelAndView();
-        ModelAndViewAssert.assertViewName(mav, "signup");
-
+                .andExpect(MockMvcResultMatchers.view().name("signup"));
     }
 
 }

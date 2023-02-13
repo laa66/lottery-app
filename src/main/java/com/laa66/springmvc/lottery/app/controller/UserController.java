@@ -11,7 +11,7 @@ import com.laa66.springmvc.lottery.app.service.LotteryService;
 import com.laa66.springmvc.lottery.app.service.TicketService;
 import com.laa66.springmvc.lottery.app.dto.TicketDTO;
 import com.laa66.springmvc.lottery.app.dto.UserDTO;
-import com.laa66.springmvc.lottery.app.utils.Mapper;
+import com.laa66.springmvc.lottery.app.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -42,7 +42,6 @@ public class UserController {
     @GetMapping("/panel/{id}")
     public String showUserPanel(@PathVariable("id") int id, Authentication authentication, Model model) {
         User user = userService.getUser(id);
-        System.out.println("User: " + user.getUsername() + "Auth user: " + authentication.getName());
         if (!user.getUsername().equals(authentication.getName())) throw new AccessErrorException("Access denied.");
         Set<Ticket> tickets = ticketService.getUserTickets(id);
         model.addAttribute("loggedUserId", user.getId());
@@ -76,10 +75,8 @@ public class UserController {
     public String saveUser(@RequestParam(required = false) Integer loggedUserId, @Valid @ModelAttribute("userForm") UserDTO userDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors() && loggedUserId == null) return "signup";
         else if (bindingResult.hasErrors()) return "redirect:/user/create?loggedUserId=" + loggedUserId;
-
         User user = mapper.toUser(userDTO);
         userService.saveUser(user);
-
         if (loggedUserId == null) return "redirect:/";
         return "redirect:/user/panel/" + loggedUserId;
     }

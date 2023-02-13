@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.format.DateTimeFormatter;
 
 
-// TODO: 12.02.2023 REFACTOR Controllers Tests
 // TODO: 13.02.2023 Create bean for drawing one time a day and refactor tests
 @Controller
 public class LotteryController {

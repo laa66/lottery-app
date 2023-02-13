@@ -77,8 +77,7 @@ class LotteryControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/error"))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.view().name("error"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn();
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
@@ -89,8 +88,7 @@ class LotteryControllerTest {
                         .param("loggedUserId", "1"))
                         .andDo(print())
                         .andExpect(MockMvcResultMatchers.redirectedUrl("/user/panel/1"))
-                        .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-                        .andReturn();
+                        .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
         verify(lotteryServiceMock, times(1)).drawAndSave();
     }
 
@@ -103,9 +101,7 @@ class LotteryControllerTest {
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.model().attributeExists("nextLotteryDate"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("ticket-confirmation"))
-                .andReturn();
-
+                .andExpect(MockMvcResultMatchers.view().name("ticket-confirmation"));
         verify(lotteryServiceMock, times(1)).getLastDrawResult();
 
     }
@@ -121,8 +117,7 @@ class LotteryControllerTest {
                 .andExpect(MockMvcResultMatchers.model().attributeExists("lastNumbers", "allNumbers"))
                 .andExpect(MockMvcResultMatchers.model().attributeDoesNotExist("userTickets", "loggedUserId", "ticketNumbers"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("index"))
-                .andReturn();
+                .andExpect(MockMvcResultMatchers.view().name("index"));
 
         verify(lotteryServiceMock, times(1)).getLastDrawResult();
         verify(lotteryServiceMock, times(1)).getDrawResults();

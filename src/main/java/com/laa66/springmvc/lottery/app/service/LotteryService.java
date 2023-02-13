@@ -22,6 +22,4 @@ public interface LotteryService {
 
     void drawAndSave();
 
-    void drawOneTimeADay();
-
 }

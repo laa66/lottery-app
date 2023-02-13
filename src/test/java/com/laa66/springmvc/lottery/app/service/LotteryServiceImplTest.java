@@ -4,23 +4,19 @@ import com.laa66.springmvc.lottery.app.config.SecurityConfig;
 import com.laa66.springmvc.lottery.app.config.TestAppConfig;
 import com.laa66.springmvc.lottery.app.dao.DrawResultDAO;
 import com.laa66.springmvc.lottery.app.entity.DrawResult;
-import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -74,13 +70,11 @@ class LotteryServiceImplTest {
         verify(drawResultDAOMock, times(1)).deleteDrawResult(1);
     }
 
-    @Autowired
-    LotteryService lotteryServiceTest;
-
     @Test
-    void testDrawOneTimeADay() {
-        await().atMost(5, TimeUnit.SECONDS)
-                .until(() ->  lotteryServiceTest.getDrawResults().size() > 0);
+    void testDrawAndSave() {
+        doNothing().when(drawResultDAOMock).saveDrawResult(any());
+        lotteryService.drawAndSave();
+        verify(drawResultDAOMock, times(1)).saveDrawResult(any());
     }
 
 

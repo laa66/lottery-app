@@ -33,7 +33,6 @@ public class LotteryServiceImpl implements LotteryService {
         drawResultDAO.deleteDrawResult(id);
     }
 
-    // TODO: Integration test this methods / extract this methods to different bean
     @Override
     @Transactional
     public void drawAndSave() {
@@ -41,13 +40,4 @@ public class LotteryServiceImpl implements LotteryService {
         drawResult.draw();
         drawResultDAO.saveDrawResult(drawResult);
     }
-
-    // this method is scheduled to 10 PM every day to draw new lottery results and save them to DB
-    @Scheduled(cron = "${app.schedule.cron}")
-    @Transactional
-    @Override
-    public void drawOneTimeADay() {
-        drawAndSave();
-    }
-
 }
