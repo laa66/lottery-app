@@ -2,6 +2,9 @@ package com.laa66.springmvc.lottery.app.controller;
 
 import com.laa66.springmvc.lottery.app.entity.Ticket;
 import com.laa66.springmvc.lottery.app.entity.User;
+import com.laa66.springmvc.lottery.app.exception.AccessErrorException;
+import com.laa66.springmvc.lottery.app.exception.FormErrorException;
+import com.laa66.springmvc.lottery.app.exception.UserNotFoundException;
 import com.laa66.springmvc.lottery.app.service.UserService;
 import com.laa66.springmvc.lottery.app.entity.DrawResult;
 import com.laa66.springmvc.lottery.app.service.LotteryService;
@@ -41,11 +44,12 @@ public class UserController {
     @GetMapping("/panel/{id}")
     public String showUserPanel(@PathVariable("id") int id, Authentication authentication, Model model) {
         User user = userService.getUser(id);
-        if (!user.getUsername().equals(authentication.getName())) throw new RuntimeException("Access denied.");
+        System.out.println("User: " + user.getUsername() + "Auth user: " + authentication.getName());
+        if (!user.getUsername().equals(authentication.getName())) throw new AccessErrorException("Access denied.");
         Set<Ticket> tickets = ticketService.getUserTickets(id);
         model.addAttribute("loggedUserId", user.getId());
         model.addAttribute("userForm", new UserForm());
-        model.addAttribute("userLogged", userService.getUser(id));
+        model.addAttribute("userLogged", user);
         model.addAttribute("userHistory", tickets);
         model.addAttribute("userTicketSummary", tickets.size());
 
@@ -70,18 +74,24 @@ public class UserController {
         return "user-create";
     }
 
+    // TODO: 12.02.2023 Validating not working cannot test
     @PostMapping("/save")
     public String saveUser(@RequestParam(required = false) Integer loggedUserId, @Valid @ModelAttribute("userForm") UserForm userForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors() && loggedUserId == null) return "signup";
         else if (bindingResult.hasErrors()) return "redirect:/user/create?loggedUserId=" + loggedUserId;
+
         User user = FormUtils.toUser(userForm, passwordEncoder);
         userService.saveUser(user);
+
         if (loggedUserId == null) return "redirect:/";
         return "redirect:/user/panel/" + loggedUserId;
     }
 
     @PostMapping("/save/{id}")
-    public String saveUser(@PathVariable("id") int id, @Valid @ModelAttribute("user") User user) {
+    public String saveUser(@PathVariable("id") int id, @Valid @ModelAttribute("user") User user, Authentication authentication) {
+        boolean isNormalUser = authentication.getAuthorities().stream()
+                .noneMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+        if (isNormalUser && id != user.getId()) throw new AccessErrorException("Access denied.");
         userService.saveUser(user);
         return "redirect:/user/panel/" + id;
     }
@@ -89,7 +99,7 @@ public class UserController {
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") int id, @RequestParam("loggedUserId") int loggedUserId) {
         User user = userService.getUser(id);
-        if (user == null) throw new RuntimeException("Wrong user id");
+        if (user == null) throw new UserNotFoundException("Wrong user ID.");
         userService.deleteUser(user);
         return "redirect:/user/panel/" + loggedUserId;
     }
@@ -97,14 +107,17 @@ public class UserController {
     @GetMapping("/info/{id}")
     public String showAdminUserPanel(Authentication authentication, @PathVariable("id") int id,  Model model) {
         User user = userService.getUser(id);
+        if (user == null) throw new UserNotFoundException("Wrong user ID.");
         model.addAttribute("loggedUserId", userService.loadRegularUserByUsername(authentication.getName()).getId());
         model.addAttribute("user", user);
         return "user-info";
     }
 
     @PostMapping("/saveTicket/{id}")
-    public String saveTicket(@PathVariable("id") int id, @Valid @ModelAttribute TicketForm ticketForm, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) return "redirect:/error";
+    public String saveTicket(@PathVariable("id") int id, @Valid @ModelAttribute("ticketNumbers") TicketForm ticketForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new FormErrorException("Wrong ticket numbers. Try again.");
+        }
         ticketService.addTicket(id, new Ticket(new HashSet<>(List.of(
                 ticketForm.getField1(),
                 ticketForm.getField2(),

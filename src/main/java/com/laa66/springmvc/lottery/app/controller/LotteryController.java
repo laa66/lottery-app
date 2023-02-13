@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.format.DateTimeFormatter;
 
 
-// TODO: 02.02.2023 $HOMEPAGE sorting your last number desc with date
+// TODO: 02.02.2023 CHANGE forms to DTO read about DTO
 // TODO: 05.02.2023 $GLOBAL EXCEPTION HANDLING IN CONTROLLERS
+// TODO: 12.02.2023 REFACTOR Controllers Tests
+// TODO: 13.02.2023 Create bean for drawing one time a day and refactor tests
 @Controller
 public class LotteryController {
 

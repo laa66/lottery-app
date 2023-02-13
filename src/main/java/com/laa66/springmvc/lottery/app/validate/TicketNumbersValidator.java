@@ -1,5 +1,8 @@
 package com.laa66.springmvc.lottery.app.validate;
 
+import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.HashSet;
@@ -21,6 +24,7 @@ public class TicketNumbersValidator implements ConstraintValidator<ValidTicketNu
 
     @Override
     public boolean isValid(TicketForm object, ConstraintValidatorContext context) {
+        System.out.println(object);
         HashSet<Integer> numbers = new HashSet<>(List.of(
                 object.getField1(),
                 object.getField2(),
@@ -29,12 +33,18 @@ public class TicketNumbersValidator implements ConstraintValidator<ValidTicketNu
                 object.getField5(),
                 object.getField6()
         ));
+        if (numbers.size() != 6) {
+            System.out.println("Numbers.size() = false");
+            return false;
+        }
 
+        boolean b =  checkIfNumbersInRange(numbers);
+        System.out.println(b);
 
-        return numbers.size() == 6;
+        return b;
     }
 
-    public boolean checkIfNumberInRange(Set<Integer> numbers) {
+    public boolean checkIfNumbersInRange(Set<Integer> numbers) {
         for (Integer num: numbers) if (num < 0 || num > 100) return false;
         return true;
     }

@@ -1,7 +1,7 @@
 package com.laa66.springmvc.lottery.app.controller;
 
+import com.laa66.springmvc.lottery.app.config.SecurityConfig;
 import com.laa66.springmvc.lottery.app.config.TestAppConfig;
-import com.laa66.springmvc.lottery.app.config.TestSecurityConfig;
 import com.laa66.springmvc.lottery.app.entity.DrawResult;
 import com.laa66.springmvc.lottery.app.entity.Ticket;
 import com.laa66.springmvc.lottery.app.entity.User;
@@ -30,12 +30,11 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {TestAppConfig.class, TestSecurityConfig.class})
+@ContextConfiguration(classes = {TestAppConfig.class, SecurityConfig.class})
 @WebAppConfiguration
 class LotteryControllerTest {
 

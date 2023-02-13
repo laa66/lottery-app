@@ -3,10 +3,10 @@ package com.laa66.springmvc.lottery.app.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public class UserNotFoundException extends RuntimeException {
+@ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+public class FormErrorException extends RuntimeException {
 
-    public UserNotFoundException(String message) {
+    public FormErrorException(String message) {
         super(message);
     }
 }
