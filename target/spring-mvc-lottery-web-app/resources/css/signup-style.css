@@ -1,0 +1,27 @@
+.form-signin {
+    width: 18%;
+    margin-left: 41%;
+    margin-top: 3%;
+}
+
+#sign-button {
+    color:beige;
+    width: 100%;
+}
+
+.danger-button {
+    width: 100%;
+    background-color: rgb(143, 29, 29);
+}
+
+.sign-title {
+    font-size: 30px;
+    width: 60%;
+    margin-left: 20%;
+    margin-bottom: 20px;
+}
+
+.error {
+    color: rgb(180, 3, 3);
+    font-size: 14px;
+}

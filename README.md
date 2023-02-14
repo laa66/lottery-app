@@ -1,9 +1,10 @@
 # Lottery App 🎲
 
-### Spring MVC Lottery web app with MySQL database
+### Spring MVC web app with MySQL database
 <p>
 After creating an account you can participate in the lottery which takes place once a day 
-at 10 pm and also you can check your latest lottery tickets and update user details provided during registration.
+at 10 pm. You can also check your latest lottery tickets and update user details provided during registration. 
+For more functionality you will need to log into account with Admin privileges.
 </p>
 
 ## How to run ⚡
@@ -12,64 +13,80 @@ In progress...
 ## How to use 🗺️
 At the very beginning try to register after the page loads. 
 
-1. Click the sign up button on the right side of the navigation bar
+1. Click the signup button on the right side of the navigation bar
 2. Enter user details and create your account
 3. After redirection log in using previously provided username and password
 
-Now you will be able to use regular user features of the app.
+##### Now you will be able to use regular user features of the app. 
+
+<span style="color: aqua;"><b>Note!</b></span>
+
+    If you want to check administrator features provided by the app you will need to
+    log into account with Admin credentials.
+
+    username - admin
+    password - admin
 
 ## Features 📌
 ### Here you can check features of the app
 
+#### App features: 
+
+- user authentication and authorization with Spring Security
+- lottery draw one time a day at 10 pm</li>
+- support for CRUD operations on MySQL Database using Hibernate</li>
+
+
 #### Regular user features:
-<ul>
-  <li>creating user account
-  <li>user login</li>
-  <li>participating in the lottery</li>
-  <li>checking recent lottery draw results</li>
-  <li>checking your numbers history</li>
-  <li>user summary</li>
-  <li>updating user details</li>
-</ul>
+
+- creating user account
+- user login
+- participating in the lottery
+- checking recent lottery draw results
+- checking your numbers history
+- user summary
+- updating user details
+
 
 #### Admin user has all the features of a regular user and also:
-<ul>
-  <li>app stats</li>
-  <li>adding user in admin panel</li>
-  <li>updating user details and enable/disable their accounts</li>
-  <li>deleting users</li>
-  <li>manual execution of lottery draw</li>
-</ul>
+
+- app stats
+- adding user in admin panel
+- updating user details and enable/disable their accounts
+- deleting users
+- manual execution of lottery draw
+
 
 ## Built with 🔨
 
-#### Technologies & tools:
-<ul>
-  <li>JDK 19</li>
-  <li>Spring 5 MVC, Spring Security, Spring AOP</li>
-  <li>Hibernate 5 & JPA</li>
-  <li>MySQL 8.0</li>
-  <li>HTML & CSS</li>
-  <li>JavaScript</li>
-  <li>Bootstrap v5.3</li>
-</ul>
+#### Technologies & tools used:
+
+- JDK 19
+- Spring 5 MVC, Spring Security, Spring AOP
+- JSP
+- Hibernate 5 & JPA
+- MySQL 8.0
+- HTML & CSS
+- JavaScript
+- Bootstrap v5.3
+
 
 #### Tested with: 
-<ul>
-  <li>Spring Test</li>
-  <li>JUnit 5 & AssertJ</li>
-  <li>Mockito</li>
-  <li>Hamcrest</li>
-  <li>H2 Database (for testing)</li>
-</ul>
+
+- Spring Test
+- JUnit 5 & AssertJ
+- Mockito
+- Hamcrest
+- H2 Database
 
 
 
-## TO-DO 💡
-<ul>
-  <li>Additional tests for task components in Spring container</li>
-  <li>Support for sending user confirmation emails</li>
-</ul>
+
+## To-do 💡
+
+- Additional tests for task components in Spring container
+- Support for sending user confirmation emails
+
 
 
 ## Screenshoots 🛣️

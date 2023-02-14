@@ -1,0 +1,14 @@
+com\laa66\springmvc\lottery\app\dao\UserDAOImplTest.class
+com\laa66\springmvc\lottery\app\service\TicketServiceImplTest.class
+com\laa66\springmvc\lottery\app\util\MapperTest.class
+com\laa66\springmvc\lottery\app\task\DrawTaskTest.class
+com\laa66\springmvc\lottery\app\controller\LotteryControllerTest.class
+com\laa66\springmvc\lottery\app\dao\TicketDAOImplTest.class
+com\laa66\springmvc\lottery\app\entity\DrawResultTest.class
+com\laa66\springmvc\lottery\app\config\TestAppConfig.class
+com\laa66\springmvc\lottery\app\entity\UserTest.class
+com\laa66\springmvc\lottery\app\controller\JoinControllerTest.class
+com\laa66\springmvc\lottery\app\controller\UserControllerTest.class
+com\laa66\springmvc\lottery\app\service\UserServiceImplTest.class
+com\laa66\springmvc\lottery\app\dao\DrawResultDAOImplTest.class
+com\laa66\springmvc\lottery\app\service\LotteryServiceImplTest.class
