@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -86,7 +87,7 @@ class UserServiceImplTest {
     @Test
     void testLoadUserByUsernameIfUsernameNotExists() {
         when(userDAOMock.getUser("laa66")).thenReturn(null);
-        assertNull(userService.loadUserByUsername("laa66"));
+        assertThrows(UsernameNotFoundException.class, ()-> userService.loadUserByUsername("laa66"));
         verify(userDAOMock, times(1)).getUser("laa66");
     }
 

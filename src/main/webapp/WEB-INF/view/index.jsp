@@ -203,7 +203,7 @@
                         <security:authorize access="isAuthenticated()">
                             <div id="play-lottery" class="numbers-history" style="display: none">
                                 <div class="section-title">
-                                    <p>Here you can take part in the lottery. The draw takes place everyday at 10 pm and results are immediately
+                                    <p>Here you can participate in the lottery. The draw takes place everyday at 10 pm and results are immediately
                                         updated on our home page.
                                     </p>
                                 </div>
