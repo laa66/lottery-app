@@ -48,7 +48,7 @@ At the very beginning try to register after the page loads.
     password - Adminkey1$
 
 ## Features 📌
-### Here you can check features of the app
+### Here you can check app features
 
 #### App features: 
 
@@ -76,6 +76,48 @@ At the very beginning try to register after the page loads.
 - deleting users
 - manual execution of lottery draw
 
+<details>
+  <summary style="color: grey; font-size:16px; font-weight: 700;">Click here for app development details</summary>
+
+### Application overview
+
+``Simple diagram to show how application layers work``
+
+![App-overview](src/main/webapp/resources/image/app-overview.png?raw=true "layer")
+
+### Architecture
+
+
+##### Starting with Web Layer
+
+    Browser is acting as a client in our architecture, it renders the web page for 
+    the user who can also send requests to our application.
+    
+    Incoming requests are filtered with Spring Security filters which delegates them 
+    to appropriate endpoints based on user authentication and authorization.
+
+    After arriving requests are processed inside or delegated to the injected Services.
+    Then Controllers update the view or redirect request to the other endpoints.
+
+<br>
+
+##### Business Logic Layer
+
+    Application contains few Services which process the data in appropriate way or 
+    delegate work to the other injected components and repositories. Services can also 
+    create instances and manipulate entities if it's required.
+<br>
+
+#### Data Access Layer
+
+    This layer handle communication between app and database. It supports basic CRUD 
+    operations. Datasource beans which handle integration between web app and 
+    MySQL Database has been created and configured in app Configuration. I also
+    used connection pooling pattern with c3p0 framework to reuse existing database 
+    connection and make overall performance better.
+
+<br>
+</details>
 
 ## Built with 🔨
 
@@ -107,6 +149,7 @@ At the very beginning try to register after the page loads.
 
 ## To-do 💡
 
+- Add embedded Tomcat Server for running app with one line command
 - Additional tests for task components in Spring container
 - Support for sending user confirmation emails
 
